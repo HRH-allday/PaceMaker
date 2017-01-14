@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_horizontal_margin">
 
+    <FrameLayout
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/todo_color"
+            android:background="@color/colorLight"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+        <ImageView
+            android:src="@drawable/white_margin"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+    </FrameLayout>
+
+    <TextView
+        android:textSize="20dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:id="@+id/todo_text"
+        android:text="things to do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

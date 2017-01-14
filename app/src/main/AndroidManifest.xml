@@ -32,6 +32,8 @@
             android:label="CommunityGoals">
         </activity>
         <activity android:name=".GoalRegisterActivity"/>
+        <activity android:name=".GoalActivity"/>
+
     </application>
 
 </manifest>
