@@ -22,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        FloatingActionButton community = (FloatingActionButton) findViewById(R.id.main_community);
+
+        community.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CommunityGoals.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
