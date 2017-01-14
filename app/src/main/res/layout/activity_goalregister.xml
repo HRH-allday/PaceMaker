@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_goalregister"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLight"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/harvard_business"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:text="제목"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_marginTop="215dp"
+        android:layout_marginLeft="@dimen/register_horizontal_margin"
+        android:layout_marginRight="@dimen/register_horizontal_margin"/>
+    <EditText
+        android:id="@+id/goal_name"
+        android:layout_marginTop="240dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/register_horizontal_margin"
+        android:layout_marginRight="@dimen/register_horizontal_margin"/>
+    <TextView
+        android:text="키워드"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_marginTop="280dp"
+        android:layout_marginLeft="@dimen/register_horizontal_margin"
+        android:layout_marginRight="@dimen/register_horizontal_margin"/>
+    <AutoCompleteTextView
+        android:id="@+id/hashtag_keyword"
+        android:layout_marginTop="305dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/register_horizontal_margin"
+        android:layout_marginRight="@dimen/register_horizontal_margin"/>
+
+    <ImageButton
+        android:layout_gravity="right"
+        android:scaleType="center"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@null"
+        android:layout_marginTop="210dp"
+        android:layout_marginRight="@dimen/register_horizontal_margin"
+        android:src="@drawable/ic_unlock"/>
+
+</FrameLayout>
