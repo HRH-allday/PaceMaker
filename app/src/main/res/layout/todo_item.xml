@@ -3,25 +3,26 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_horizontal_margin">
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
 
     <FrameLayout
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_gravity="center">
         <ImageView
             android:id="@+id/todo_color"
             android:background="@color/colorLight"
-            android:layout_width="15dp"
-            android:layout_height="15dp"/>
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
         <ImageView
             android:src="@drawable/white_margin"
-            android:layout_width="15dp"
-            android:layout_height="15dp" />
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
     </FrameLayout>
 
     <TextView
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/todo_text"
         android:text="things to do"

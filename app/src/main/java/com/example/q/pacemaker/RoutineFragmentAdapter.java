@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by q on 2017-01-14.
  */
 
-public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHolder>{
+public class RoutineFragmentAdapter extends RecyclerView.Adapter<RoutineFragmentAdapter.ViewHolder>{
     private ArrayList<TodoListData> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -31,9 +31,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TodoListAdapter(ArrayList<TodoListData> myDataset) {
+    public RoutineFragmentAdapter(ArrayList<TodoListData> myDataset) {
         mDataset = myDataset;
-        Log.i("search",myDataset.get(0).text);
     }
 
     // Create new views (invoked by the layout manager)
