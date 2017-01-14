@@ -8,9 +8,9 @@ public class App extends Application{
 
     // Server Parameters
     public static final String server_ip = "52.78.200.87";
-    public static final String server_port = ":3000";
-    public static final String server_protocol = "http://";
-    public static final String server_url = server_protocol + server_ip + server_port;
+    public static final String server_port = "3000";
+    public static final String server_protocol = "http";
+    public static final String server_url = server_protocol + "://" + server_ip + ":" + server_port;
     public static final String JSONcontentsType = "application/json";
 
     // Fonts
@@ -33,14 +33,14 @@ public class App extends Application{
     @Override
     public void onCreate() {
         // Get Fonts
-        NanumBarunGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothic.ttf");;
-        NanumBarunGothicBold = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicBold.ttf");;
-        NanumBarunGothicLight = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicLight.ttf");;
-        NanumBarunGothicUltraLight = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicUltraLight.ttf");;
-        NanumBarunpenBold = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenBold.ttf");;
-        NanumBarunpenRegular = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenRegular.ttf");;
-        NanumGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumGothic.ttf");;
-        NanumPen = Typeface.createFromAsset(getAssets(), "fonts/NanumPen.ttf");;
+        NanumBarunGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothic.ttf");
+        NanumBarunGothicBold = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicBold.ttf");
+        NanumBarunGothicLight = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicLight.ttf");
+        NanumBarunGothicUltraLight = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunGothicUltraLight.ttf");
+        NanumBarunpenBold = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenB.ttf");
+        NanumBarunpenRegular = Typeface.createFromAsset(getAssets(), "fonts/NanumBarunpenR.ttf");
+        NanumGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumGothic.ttf");
+        NanumPen = Typeface.createFromAsset(getAssets(), "fonts/NanumPen.ttf");
 
         super.onCreate();
     }

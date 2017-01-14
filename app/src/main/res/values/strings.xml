@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">PaceMaker</string>
-    <string name="goal_photo_description">Goal Photo</string>
-    <string name="splash_logo_description">Splash Logo</string>
-    <string name="test">TEST</string>
+    <string name="app_name">페이스메이커</string>
+    <string name="goal_photo_description">목표 사진</string>
+    <string name="splash_logo_description">로고</string>
+    <string name="test">테스트</string>
+    <string name="splash_title">Pace Maker</string>
+    <string name="splash_body">함께하면 즐겁다!</string>
+    <string name="community_category_near"> · 내 주변 목표</string>
+    <string name="community_category_topic"> · 주제별 목표</string>
+    <string name="community_category_popular"> · 인기있는 목표</string>
 </resources>

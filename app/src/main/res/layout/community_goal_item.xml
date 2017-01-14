@@ -6,31 +6,51 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
-    card_view:cardCornerRadius="8dp"
+    card_view:cardCornerRadius="4dp"
     android:layout_marginBottom="16dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="@dimen/goal_card_size"
+        android:layout_height="@dimen/goal_card_size">
 
         <ImageView
             android:id="@+id/community_goal_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/goal_card_size"
+            android:layout_height="@dimen/goal_card_size"
             android:contentDescription="@string/goal_photo_description"
             android:scaleType="centerCrop"
-            android:src="@drawable/loading"/>
+            android:src="@drawable/loading"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="@dimen/goal_card_size"
+            android:layout_height="@dimen/goal_card_size"
+            android:background="#20000000"/>
 
         <TextView
             android:id="@+id/community_goal_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="@dimen/goal_card_title_text_size"
             android:text="@string/test"
-            android:layout_below="@+id/community_goal_photo"
+            android:textColor="#ffffff"
+            android:background="#80000000"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:gravity="center_horizontal"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/community_goal_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/goal_card_people_text_size"
+            android:text="@string/test"
+            android:textColor="#ffffff"
+            android:background="#80000000"
+            android:padding="8dp"
+            android:gravity="end|bottom"
             android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>

@@ -23,8 +23,7 @@ public class GoalActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new TodoAdapter(my);
+        //mAdapter = new TodoAdapter(my);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 }

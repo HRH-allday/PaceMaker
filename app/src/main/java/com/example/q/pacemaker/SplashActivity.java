@@ -8,7 +8,7 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity {
-    private static final int SPLASH_TIME_OUT = 1000;
+    private static final int SPLASH_TIME_OUT = 1500;
 
     private ImageView splash_logo;
     private TextView splash_title;
