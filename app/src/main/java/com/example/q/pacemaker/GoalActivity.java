@@ -22,6 +22,7 @@ public class GoalActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
