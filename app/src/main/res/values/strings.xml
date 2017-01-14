@@ -6,6 +6,6 @@
     <string name="splash_title">Pace Maker</string>
     <string name="splash_body">함께하면 즐겁다!</string>
     <string name="community_category_near"> · 내 주변 목표</string>
-    <string name="community_category_topic"> · 주제별 목표</string>
+    <string name="community_category_topic"> · 내 관심 목표</string>
     <string name="community_category_popular"> · 인기있는 목표</string>
 </resources>

@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.q.pacemaker.CommunityGoals">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="5px"
         android:orientation="vertical">
 
         <TextView
@@ -24,6 +21,7 @@
             android:textSize="@dimen/goal_card_title_text_size"
             android:text="@string/community_category_near"
             android:textColor="@color/colorPrimary"
+            android:paddingLeft="16dp"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"/>
 
@@ -33,8 +31,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_community_near"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scrollbars="vertical" />
+                android:layout_height="@dimen/recycler_view_size"/>
         </RelativeLayout>
 
         <TextView
@@ -44,6 +41,7 @@
             android:textSize="@dimen/goal_card_title_text_size"
             android:text="@string/community_category_topic"
             android:textColor="@color/colorPrimary"
+            android:paddingLeft="16dp"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"/>
 
@@ -53,8 +51,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_community_topic"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scrollbars="vertical" />
+                android:layout_height="@dimen/recycler_view_size"/>
         </RelativeLayout>
 
         <TextView
@@ -64,6 +61,7 @@
             android:textSize="@dimen/goal_card_title_text_size"
             android:text="@string/community_category_popular"
             android:textColor="@color/colorPrimary"
+            android:paddingLeft="16dp"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"/>
 
@@ -73,8 +71,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_community_popular"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scrollbars="vertical" />
+                android:layout_height="@dimen/recycler_view_size"/>
         </RelativeLayout>
 
     </LinearLayout>
