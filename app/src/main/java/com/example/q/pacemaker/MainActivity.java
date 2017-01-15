@@ -88,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        FloatingActionButton register = (FloatingActionButton) findViewById(R.id.main_register);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GoalRegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
