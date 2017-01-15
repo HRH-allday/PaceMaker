@@ -1,61 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_goalregister"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLight"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/harvard_business"
-        android:scaleType="centerCrop"/>
-
-    <TextView
-        android:text="제목"
-        android:textSize="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:layout_marginTop="215dp"
-        android:layout_marginLeft="@dimen/register_horizontal_margin"
-        android:layout_marginRight="@dimen/register_horizontal_margin"/>
-    <EditText
-        android:id="@+id/goal_name"
-        android:layout_marginTop="240dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/register_horizontal_margin"
-        android:layout_marginRight="@dimen/register_horizontal_margin"/>
-    <TextView
-        android:text="키워드"
-        android:textSize="25dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:layout_marginTop="280dp"
-        android:layout_marginLeft="@dimen/register_horizontal_margin"
-        android:layout_marginRight="@dimen/register_horizontal_margin"/>
-    <AutoCompleteTextView
-        android:id="@+id/hashtag_keyword"
-        android:layout_marginTop="305dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/register_horizontal_margin"
-        android:layout_marginRight="@dimen/register_horizontal_margin"/>
+        android:orientation="vertical">
 
-    <ImageButton
-        android:layout_gravity="right"
-        android:scaleType="center"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@null"
-        android:layout_marginTop="210dp"
-        android:layout_marginRight="@dimen/register_horizontal_margin"
-        android:src="@drawable/ic_unlock"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/register_photo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_photo_height"
+                android:src="@drawable/default_img"
+                android:scaleType="centerCrop"/>
 
-</FrameLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_photo_height"
+                android:background="#40000000"/>
+
+            <TextView
+                android:id="@+id/register_new_goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_new_goal_name"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_extra_large"
+                android:textColor="@color/colorWhite"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingLeft="20dp"
+                android:paddingBottom="20dp"
+                android:shadowColor="#000000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="2.0"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_row_height"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_goal_name_label"
+                android:text="@string/register_goal_name"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <EditText
+                android:id="@+id/register_goal_name"
+                android:inputType="textShortMessage"
+                android:hint="@string/register_goal_name_hint"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:textSize="@dimen/text_regular"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_row_height"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_keyword_label"
+                android:text="@string/register_keyword_name"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/register_hashtag_keyword"
+                android:inputType="textShortMessage"
+                android:hint="@string/register_keyword_hint"
+                android:maxLines="1"
+                android:textSize="@dimen/text_regular"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_row_height"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_public_label"
+                android:text="@string/register_public_name"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <RadioGroup
+                android:id="@+id/register_radio_group"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/register_radio_public"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="true"
+                    android:text="@string/public_label"/>
+                <RadioButton
+                    android:id="@+id/register_radio_private"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:text="@string/private_label"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_description_label"
+                android:text="@string/register_description_name"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <EditText
+                android:id="@+id/register_description"
+                android:inputType="textMultiLine"
+                android:hint="@string/register_description_hint"
+                android:minLines="5"
+                android:maxLines="5"
+                android:maxLength="100"
+                android:textSize="@dimen/text_small"
+                android:background="@drawable/edittext_bg"
+                android:gravity="top"
+                android:layout_height="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_start_date_label"
+                android:text="@string/register_start_date"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <EditText
+                android:id="@+id/register_start_date"
+                android:inputType="none"
+                android:focusable="false"
+                android:editable="false"
+                android:hint="@string/register_date_hint"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_end_date_label"
+                android:text="@string/register_end_date"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <EditText
+                android:id="@+id/register_end_date"
+                android:inputType="none"
+                android:focusable="false"
+                android:editable="false"
+                android:hint="@string/register_date_hint"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+
+        <!-- 월화수목금토일 루틴 입력 창 들어갈 곳 -->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="20dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/register_goal_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="목표 등록하기"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_regular"
+                android:textStyle="bold"
+                android:gravity="center"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

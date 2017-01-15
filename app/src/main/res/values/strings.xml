@@ -8,4 +8,17 @@
     <string name="community_category_near"> · 내 주변 목표</string>
     <string name="community_category_topic"> · 내 관심 목표</string>
     <string name="community_category_popular"> · 인기있는 목표</string>
+    <string name="register_goal_name">타이틀</string>
+    <string name="register_goal_name_hint">목표 이름</string>
+    <string name="register_keyword_hint">nodejs</string>
+    <string name="register_keyword_name">키워드</string>
+    <string name="register_public_name">공개여부</string>
+    <string name="register_description_name">소개</string>
+    <string name="register_description_hint">목표에 대한 짤막한 설명을 써주세요 :)</string>
+    <string name="register_new_goal_name">새로운 목표</string>
+    <string name="public_label">공개</string>
+    <string name="private_label">비공개</string>
+    <string name="register_start_date">시작일</string>
+    <string name="register_end_date">종료일</string>
+    <string name="register_date_hint">2017년 1월 1일</string>
 </resources>

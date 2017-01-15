@@ -49,4 +49,15 @@
         android:layout_alignLeft="@+id/main_add_goal"
         android:layout_alignStart="@+id/main_add_goal" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:src="@drawable/ic_add"
+        android:background="@android:color/transparent"
+        android:layout_above="@+id/main_community"
+        android:layout_alignLeft="@+id/main_add_goal"
+        android:layout_alignStart="@+id/main_add_goal" />
+
 </RelativeLayout>
