@@ -1,6 +1,7 @@
 package com.example.q.pacemaker;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class GoalCardViewAdapter extends RecyclerView.Adapter<GoalCardViewAdapter.ViewHolder> {
     private ArrayList<CustomizeData> customizeDatas;
     private ArrayList<TodoListData> mTodoList;
+    private FragmentManager fm;
 
 
 
@@ -71,7 +73,7 @@ public class GoalCardViewAdapter extends RecyclerView.Adapter<GoalCardViewAdapte
             tabLayout.addTab(tabLayout.newTab().setText("일"));
 
             viewPager = (ViewPager) view.findViewById(R.id.routine_viewpager);
-            adapter = new RoutineAdapter(activity.getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6));
+            adapter = new RoutineAdapter(fm, mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6));
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -96,8 +98,8 @@ public class GoalCardViewAdapter extends RecyclerView.Adapter<GoalCardViewAdapte
         }
     }
 
-    public GoalCardViewAdapter (AppCompatActivity act, ArrayList<CustomizeData> customizeDatas){
-        this.activity = act;
+    public GoalCardViewAdapter (FragmentManager fm, ArrayList<CustomizeData> customizeDatas){
+        this.fm = fm;
         this.customizeDatas = customizeDatas;
         this.mTodoList = customizeDatas.get(0).todoListDatas;
         this.mRoutineList = customizeDatas.get(1).routineDatas;

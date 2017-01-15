@@ -2,7 +2,7 @@ package com.example.q.pacemaker;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by q on 2017-01-14.
  */
 
-public class RoutineAdapter extends FragmentPagerAdapter {
+public class RoutineAdapter extends FragmentStatePagerAdapter {
     private RoutineFragment mondayFragment;
     private RoutineFragment tuesdayFragment;
     private RoutineFragment wednesdayFragment;
@@ -56,7 +56,7 @@ public class RoutineAdapter extends FragmentPagerAdapter {
             case 6 :
                 return sundayFragment;
             default :
-                return null;
+                return mondayFragment;
         }
     }
 
