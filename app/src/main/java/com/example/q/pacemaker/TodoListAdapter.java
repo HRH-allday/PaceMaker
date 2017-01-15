@@ -33,7 +33,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     // Provide a suitable constructor (depends on the kind of dataset)
     public TodoListAdapter(ArrayList<TodoListData> myDataset) {
         mDataset = myDataset;
-        Log.i("search",myDataset.get(0).text);
+    }
+
+    public void addItem(TodoListData tld, int position){
+        mDataset.add(position, tld);
+        notifyItemInserted(position);
     }
 
     // Create new views (invoked by the layout manager)

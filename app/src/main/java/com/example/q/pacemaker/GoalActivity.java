@@ -1,5 +1,6 @@
 package com.example.q.pacemaker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,22 +28,52 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private CardView routineView;
 
     private ArrayList<TodoListData> mTodoList;
+    private ArrayList<TodoListData> mMondayList;
+    private ArrayList<TodoListData> mTuesdayList;
+    private ArrayList<TodoListData> mWednesdayList;
+    private ArrayList<TodoListData> mThursdayList;
+    private ArrayList<TodoListData> mFridayList;
+    private ArrayList<TodoListData> mSatdayList;
+    private ArrayList<TodoListData> mSundayList;
     private ArrayList<ArrayList<TodoListData>> mRoutineList;
-    public RecyclerView.Adapter mAdapter;
 
-    public TextView mTextView;
-    public RecyclerView mRecyclerView;
+    public String title;
+    public String description;
+
+
+
+    public TextView todoTextView;
+    public RecyclerView todoRecyclerView;
     public RecyclerView.LayoutManager mLayoutManager;
+    public RecyclerView.Adapter todoAdapter;
 
     public TabLayout tabLayout;
     public RoutineAdapter adapter;
     public ViewPager viewPager;
+
+    private ArrayList<TodoListData> mMemoList;
+    public Button memo_plus;
+    public EditText memoEditView;
+    public RecyclerView memoRecyclerView;
+    public RecyclerView.Adapter memoAdapter;
+    public RecyclerView.LayoutManager memoLayoutManager;
+
+    private Button shareButton;
+
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        // TODO: title, description, todo list, routine, memo 받아서 넣기
+        // data setting
         ArrayList<TodoListData> tld = new ArrayList<>();
         ArrayList<ArrayList<TodoListData>> routine = new ArrayList<>();
         tld.add(new TodoListData("밥 먹기", "#ff1616"));
@@ -50,17 +87,21 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         customizeDatas.add(cd2);
         mTodoList = tld;
         mRoutineList = routine;
-        mAdapter = new TodoListAdapter(mTodoList);
 
+        // todo card
         todoView = (CardView) findViewById(R.id.cardview);
-        routineView = (CardView) findViewById(R.id.cardview2);
-        mTextView = (TextView) findViewById(R.id.todo);
-        mRecyclerView = (RecyclerView)  findViewById(R.id.todoRecyclerView);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mTextView.setText("오늘의 할 일");
-        mRecyclerView.setAdapter(mAdapter);
 
+        todoTextView = (TextView) findViewById(R.id.todo);
+        todoRecyclerView = (RecyclerView)  findViewById(R.id.todoRecyclerView);
+        mLayoutManager = new LinearLayoutManager(this);
+        todoRecyclerView.setLayoutManager(mLayoutManager);
+        todoTextView.setText("오늘의 할 일");
+        todoAdapter = new TodoListAdapter(mTodoList);
+        todoRecyclerView.setAdapter(todoAdapter);
+
+        // routine card
+
+        routineView = (CardView) findViewById(R.id.routine_cardview);
         tabLayout = (TabLayout) findViewById(R.id.routine_tablayout);
 
         tabLayout.addTab(tabLayout.newTab().setText("월"));
@@ -79,9 +120,69 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         tabLayout.addOnTabSelectedListener(this);
 
+        // memo card
+        todoView = (CardView) findViewById(R.id.cardview);
+        memo_plus = (Button) findViewById(R.id.memo_button);
+        memoEditView = (EditText) findViewById(R.id.memo_edit);
+        memoRecyclerView = (RecyclerView)  findViewById(R.id.memoRecyclerView);
+        memoLayoutManager = new LinearLayoutManager(this);
+        memoRecyclerView.setLayoutManager(memoLayoutManager);
+        memoAdapter = new TodoListAdapter(new ArrayList<TodoListData>());
+        memoRecyclerView.setAdapter(memoAdapter);
+
+        String memo;
+        memo_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String edit = memoEditView.getText().toString().trim();
+                if(edit.equals(""))
+                    return;
+                else
+                    ((TodoListAdapter) memoAdapter).addItem(new TodoListData(edit, "#ff1616"), 0);
+
+            }
+        });
+
+        //share
+        shareButton = (Button) findViewById(R.id.share_button);
+        title = "제목";
+        description = "설명";
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent msg = new Intent(Intent.ACTION_SEND);
+                msg.addCategory(Intent.CATEGORY_DEFAULT);
+                msg.putExtra(Intent.EXTRA_TEXT, description);
+                msg.putExtra(Intent.EXTRA_SUBJECT, title);
+                msg.setType("text/plain");
+                startActivity(Intent.createChooser(msg, "공유"));
+
+            }
+        });
+
+
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.invisible_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_button){
+            Intent intent = new Intent(getApplicationContext(), CommunityActivity.class);
+            startActivity(intent);
+        }
+        return true;
+    }
+
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager.setCurrentItem(tab.getPosition());

@@ -4,15 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView backgroundList;
-    private RecyclerView.Adapter adapter;
-    ArrayList<TodoListData> todoListDatas;
+    private RecyclerView mainTodoList;
+    private RecyclerView.Adapter mainAdapter;
+    private RecyclerView.LayoutManager mainLayoutManager;
+    private ArrayList<ArrayList<TodoListData>> todoList;
+    private ArrayList<String> titleList;
 
 
 /*
@@ -69,6 +72,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TODO : todoList, titleList 에 할일 목록 넣기
+        //data setting
+        ArrayList<TodoListData> tld = new ArrayList<>();
+        ArrayList<ArrayList<TodoListData>> routine = new ArrayList<>();
+        titleList = new ArrayList<>();
+        todoList = new ArrayList<>();
+        tld.add(new TodoListData("밥 먹기", "#ff1616"));
+        tld.add(new TodoListData("개발하기", "#ff1616"));
+        for(int i = 0; i < 7; i++){
+            todoList.add(tld);
+            titleList.add(i+"번째 할 일 " );
+        }
+
+
+
+
+
+        mainTodoList = (RecyclerView) findViewById(R.id.main_recycler_view);
+        mainLayoutManager = new LinearLayoutManager(this);
+        mainTodoList.setLayoutManager(mainLayoutManager);
+        mainAdapter = new GoalCardViewAdapter(todoList, titleList);
+        mainTodoList.setAdapter(mainAdapter);
+
 
         FloatingActionButton add_goal = (FloatingActionButton) findViewById(R.id.main_add_goal);
 
