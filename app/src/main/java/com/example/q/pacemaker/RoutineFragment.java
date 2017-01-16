@@ -11,7 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.q.pacemaker.Utilities.SendJSON;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 ;
 
@@ -30,6 +36,7 @@ public class RoutineFragment extends Fragment {
 
     int day;
     int from;
+    String cid;
 
 
     public RoutineFragment(){
@@ -54,6 +61,10 @@ public class RoutineFragment extends Fragment {
         this.from = f;
     }
 
+    public void setCid(String id){
+        this.cid = id;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +83,19 @@ public class RoutineFragment extends Fragment {
                     routineEdit.setText("");
                     TodoListData rt = new TodoListData(todo, "#ff1616");
                     addRoutine(rt);
+                    try {
+                        JSONObject req = new JSONObject();
+                        req.put("cid", cid);
+                        req.put("new_routine", todo);
+                        req.put("day",day);
+
+                        JSONObject res = new SendJSON(App.server_url + App.routing_user_info, req.toString(), App.JSONcontentsType).execute().get();
+                        if (res != null && res.has("result") && res.getString("result").equals("success")) {
+
+                        }
+                    }catch (JSONException | InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
 
                 }
                 else{

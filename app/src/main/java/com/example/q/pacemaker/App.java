@@ -19,6 +19,10 @@ public class App extends Application{
     public static final String routing_user_register = "/user_register";
     public static final String routing_new_goal_register = "/new_goal_register";
     public static final String routing_main = "/get_todo";
+    public static final String routing_user_info = "/user_info";
+    public static final String routing_goal_clone_info = "/goal_clone_info";
+    public static final String routing_add_todo = "/add_todo";
+    public static final String routing_add_routine = "/add_routine";
 
     public static final String JSONcontentsType = "application/json";
 

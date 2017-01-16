@@ -129,6 +129,9 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         register_button.setTypeface(App.NanumBarunGothic);
 
 
+
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, keyword_hash);
         register_keyword.setAdapter(adapter);
 
@@ -163,6 +166,8 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
             e.printStackTrace();
         }
     }
+
+
 
     View.OnClickListener registerPhotoOnClicked = new View.OnClickListener() {
         @Override
@@ -268,6 +273,18 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMondayList = new JSONArray();
+        mTuesdayList = new JSONArray();
+        mWednesdayList = new JSONArray();
+        mThursdayList = new JSONArray();
+        mFridayList = new JSONArray();
+        mSatdayList = new JSONArray();
+        mSundayList = new JSONArray();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {

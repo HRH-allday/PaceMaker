@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
-import android.widget.ListView;
 
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -29,11 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mainAdapter;
     private RecyclerView.LayoutManager mainLayoutManager;
     private ArrayList<ArrayList<TodoListData>> todoList;
-    private ArrayList<String> titleList;
-
-    private String[] mPlanetTitles = {"1번","2번"};
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    public static ArrayList<String> titleList;
+    public static ArrayList<String> cidList;
 
     public String token;
 
@@ -52,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //data setting
         titleList = new ArrayList<>();
         todoList = new ArrayList<>();
+        cidList = new ArrayList<>();
         try {
             JSONObject req = new JSONObject();
             req.put("token", token);
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 for(int i = 0 ; i < goalJarr.length() ; i++){
                     titleList.add(titleJarr.getString(i));
                     JSONObject goal = goalJarr.getJSONObject(i);
+                    cidList.add(goal.getString("_id"));
                     ArrayList<TodoListData> tld = new ArrayList<>();
                     JSONArray todos = goal.getJSONArray("todo");
                     for(int j = 0 ; j < todos.length() ; j++){
@@ -130,6 +129,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        final Menu menu = navigationView.getMenu();
+        final SubMenu subMenu = menu.addSubMenu("나의 목표");
+        for (int i = 0; i < titleList.size() ; i++) {
+            Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
+            intent.putExtra("cid", cidList.get(i));
+            subMenu.add(titleList.get(i)).setIcon(R.drawable.ic_done).setIntent(intent);
+        }
 
 
 
