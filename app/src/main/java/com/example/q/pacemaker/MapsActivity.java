@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -160,7 +161,11 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     View.OnClickListener selectButtonOnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), selectedPoint.toString(), Toast.LENGTH_SHORT).show();
+            Intent data = new Intent();
+            String location = String.valueOf(selectedPoint.latitude) + "/" + String.valueOf(selectedPoint.longitude);
+            data.setData(Uri.parse(location));
+            setResult(RESULT_OK, data);
+            finish();
         }
     };
 
@@ -288,7 +293,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        googleMap.setOnMapLongClickListener(this);
+        googleMap.setOnMapClickListener(this);
         googleMap.setOnMapLongClickListener(this);
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 
@@ -453,12 +458,10 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         super.onDestroy();
     }
 
-
     @Override
     public void onLocationChanged(Location location) {
 
         String errorMessage = "";
-
         /*
         googleMap.clear();
 
