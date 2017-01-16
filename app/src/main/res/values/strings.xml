@@ -21,4 +21,8 @@
     <string name="register_start_date">시작일</string>
     <string name="register_end_date">종료일</string>
     <string name="register_date_hint">2017년 1월 1일</string>
+    <string name="user_login_default_name">이름 없음</string>
+    <string name="user_login_message">이름 없음님으로 계속하시겠습니까?</string>
+    <string name="user_login_cancel">취소</string>
+    <string name="user_login_continue">계속</string>
 </resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "253143325956",
+    "firebase_url": "https://pacemaker-35a04.firebaseio.com",
+    "project_id": "pacemaker-35a04",
+    "storage_bucket": "pacemaker-35a04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253143325956:android:d52e3246e7413dfb",
+        "android_client_info": {
+          "package_name": "com.example.q.pacemaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253143325956-fkbevqb2n70jkpfle62emm7bp4alsour.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF_K83_WMZkfmc4fMvwmlkaF7f3LRv_ao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
