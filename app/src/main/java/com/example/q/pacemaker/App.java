@@ -6,12 +6,17 @@ import android.graphics.Typeface;
 
 public class App extends Application{
 
+    // User Parameters
+    public static String token;
+
     // Server Parameters
     public static final String server_ip = "52.78.200.87";
     public static final String server_port = "3000";
     public static final String server_protocol = "http";
     public static final String server_url = server_protocol + "://" + server_ip + ":" + server_port;
 
+    public static final String routing_user_login = "/user_login";
+    public static final String routing_user_register = "/user_register";
     public static final String routing_new_goal_register = "/new_goal_register";
 
     public static final String JSONcontentsType = "application/json";
