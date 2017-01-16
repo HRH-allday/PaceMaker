@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view_chatroom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/chatRoomLayout"
+        android:layout_width="@dimen/chatroom_card_size"
+        android:layout_height="@dimen/chatroom_card_size">
+
+        <ImageView
+            android:id="@+id/chatroom_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/chatroom_photo_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/loading" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#20000000"/>
+
+        <TextView
+            android:id="@+id/chatroom_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_regular"
+            android:text="@string/test"
+            android:textColor="#ffffff"
+            android:background="#80000000"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/chatroom_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_small"
+            android:text="@string/test"
+            android:textColor="#ffffff"
+            android:background="#80000000"
+            android:padding="8dp"
+            android:gravity="end|bottom"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

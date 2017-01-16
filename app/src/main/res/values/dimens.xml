@@ -21,4 +21,6 @@
     <dimen name="text_large">24sp</dimen>
     <dimen name="text_extra_large">30sp</dimen>
 
+    <dimen name="chatroom_card_size">180dp</dimen>
+
 </resources>

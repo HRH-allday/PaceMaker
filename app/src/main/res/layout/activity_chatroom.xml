@@ -16,13 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/enter_chat_temp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="15dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/hhj3" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_chatroom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/make_chat"
