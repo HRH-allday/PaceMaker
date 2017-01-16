@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private Bitmap bmp_user_photo;
     private String login_msg;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

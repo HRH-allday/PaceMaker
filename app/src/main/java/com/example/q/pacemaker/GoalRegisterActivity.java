@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,22 +22,23 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.q.pacemaker.App;
 import com.example.q.pacemaker.Utilities.Base64EncodeImage;
 import com.example.q.pacemaker.Utilities.SendJSON;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 
-public class GoalRegisterActivity extends Activity {
+public class GoalRegisterActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
     private static final int SELECT_PHOTO = 1;
 
@@ -60,6 +65,21 @@ public class GoalRegisterActivity extends Activity {
     private Bitmap selectedImage;
     private String base64EncodedImage;
     private Activity activity;
+
+    private CardView routineView;
+    public TabLayout tabLayout;
+    public RoutineAdapter routineAdapter;
+    public ViewPager viewPager;
+
+    public static JSONArray mMondayList = new JSONArray();
+    public static JSONArray mTuesdayList = new JSONArray();
+    public static JSONArray mWednesdayList = new JSONArray();
+    public static JSONArray mThursdayList = new JSONArray();
+    public static JSONArray mFridayList = new JSONArray();
+    public static JSONArray mSatdayList = new JSONArray();
+    public static JSONArray mSundayList = new JSONArray();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,10 +128,34 @@ public class GoalRegisterActivity extends Activity {
         register_end_date.setTypeface(App.NanumBarunGothic);
         register_button.setTypeface(App.NanumBarunGothic);
 
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, keyword_hash);
         register_keyword.setAdapter(adapter);
 
         selectedImage = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
+
+        //routine setting
+        routineView = (CardView) findViewById(R.id.routine_cardview);
+        tabLayout = (TabLayout) findViewById(R.id.routine_tablayout);
+
+        tabLayout.addTab(tabLayout.newTab().setText("월"));
+        tabLayout.addTab(tabLayout.newTab().setText("화"));
+        tabLayout.addTab(tabLayout.newTab().setText("수"));
+        tabLayout.addTab(tabLayout.newTab().setText("목"));
+        tabLayout.addTab(tabLayout.newTab().setText("금"));
+        tabLayout.addTab(tabLayout.newTab().setText("토"));
+        tabLayout.addTab(tabLayout.newTab().setText("일"));
+
+        viewPager = (ViewPager) findViewById(R.id.routine_viewpager);
+        routineAdapter = new RoutineAdapter(getSupportFragmentManager(), new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(), 0);
+        viewPager.setAdapter(routineAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+        tabLayout.addOnTabSelectedListener(this);
+
+
+
 
         try {
             base64EncodedImage = new Base64EncodeImage().execute(selectedImage).get();
@@ -201,8 +245,23 @@ public class GoalRegisterActivity extends Activity {
                 req.put("dateFrom", dateFrom);
                 req.put("dateTo", dateTo);
                 req.put("photo", base64EncodedImage);
+                req.put("mon", mMondayList);
+                req.put("tue", mTuesdayList);
+                req.put("wed", mWednesdayList);
+                req.put("thu", mThursdayList);
+                req.put("fri", mFridayList);
+                req.put("sat", mSatdayList);
+                req.put("sun", mSundayList);
+                req.put("token", FirebaseInstanceId.getInstance().getToken());
 
                 JSONObject res = new SendJSON(App.server_url + App.routing_new_goal_register, req.toString(), App.JSONcontentsType).execute().get();
+                if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                    String cloneID = res.getString("cid");
+                    Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
+                    intent.putExtra("cloneID", cloneID);
+                    startActivity(intent);
+                    finish();
+                }
 
             } catch (JSONException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -231,5 +290,20 @@ public class GoalRegisterActivity extends Activity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 }

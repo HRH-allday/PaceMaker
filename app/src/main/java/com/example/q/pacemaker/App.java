@@ -18,6 +18,7 @@ public class App extends Application{
     public static final String routing_user_login = "/user_login";
     public static final String routing_user_register = "/user_register";
     public static final String routing_new_goal_register = "/new_goal_register";
+    public static final String routing_main = "/get_todo";
 
     public static final String JSONcontentsType = "application/json";
 

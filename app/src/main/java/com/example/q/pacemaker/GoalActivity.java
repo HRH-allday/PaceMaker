@@ -40,6 +40,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     public String title;
     public String description;
+    private String cloneID;
 
 
 
@@ -72,8 +73,12 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        cloneID = intent.getStringExtra("cloneID");
+
 
         // TODO: title, description, todo list, routine, memo 받아서 넣기
+
         // data setting
         ArrayList<TodoListData> tld = new ArrayList<>();
         ArrayList<ArrayList<TodoListData>> routine = new ArrayList<>();
@@ -145,7 +150,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addTab(tabLayout.newTab().setText("일"));
 
         viewPager = (ViewPager) findViewById(R.id.routine_viewpager);
-        adapter = new RoutineAdapter(getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6));
+        adapter = new RoutineAdapter(getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6), 1);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

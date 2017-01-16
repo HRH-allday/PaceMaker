@@ -90,12 +90,33 @@
                             android:text="오늘의 할일"
                             android:textColor="@color/colorWhite"
                             android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="37dp"
+                            android:weightSum="1">
+
+                            <EditText
+                                android:id="@+id/todo_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.8"
+                                android:hint="할일을 추가하세요" />
+
+                            <Button
+                                android:id="@+id/todo_button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.2"
+                                android:background="@color/colorLight" />
+                        </LinearLayout>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/todoRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
+                            android:layout_marginTop="90dp"
                             android:scrollbars="vertical" />
 
                         <ImageView
@@ -122,7 +143,7 @@
                         android:id="@+id/routine_tablayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorLightDark"
+                        android:background="@color/colorPrimary"
                         android:textColor="@color/colorWhite" />
 
                     <com.example.q.pacemaker.NonSwipeableViewPager

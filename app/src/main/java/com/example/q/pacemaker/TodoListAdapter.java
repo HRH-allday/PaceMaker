@@ -36,6 +36,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.ViewHo
     }
 
     public void addItem(TodoListData tld, int position){
+        Log.i("entered", "pos : "+position);
         mDataset.add(position, tld);
         notifyItemInserted(position);
     }

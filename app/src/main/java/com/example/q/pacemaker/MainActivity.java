@@ -8,11 +8,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.q.pacemaker.Utilities.SendJSON;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mainTodoList;
@@ -25,76 +35,74 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 
+    public String token;
+
     public static UserInfo myInfo = new UserInfo("홍영규", "testurl", "1234");
 
-
-/*
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.routine_fragment, null);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-
-
-        backgroundList = (RecyclerView) view.findViewById(R.id.routine_recyclerview);
-        backgroundList.setLayoutManager(mLayoutManager);
-
-        adapter = new TodoListAdapter(todoListDatas);
-        Log.i("really", todoListDatas.get(1).text);
-
-        backgroundList.setAdapter(adapter);
-
-        return view;
-    }
-    */
-
-    /*
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<CustomizeData> customizeDatas = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goal);
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        ArrayList<TodoListData> tld = new ArrayList<>();
-        ArrayList<ArrayList<TodoListData>> routine = new ArrayList<>();
-        tld.add(new TodoListData("밥 먹기", "#ff1616"));
-        tld.add(new TodoListData("개발하기", "#ff1616"));
-        for(int i = 0; i < 7; i++){
-            routine.add(tld);
-        }
-        CustomizeData cd = new CustomizeData(0, tld);
-        CustomizeData cd2 = new CustomizeData(1, routine, 0);
-        customizeDatas.add(cd);
-        customizeDatas.add(cd2);
-
-        mAdapter = new GoalCardViewAdapter(getSupportFragmentManager(), customizeDatas);
-        mRecyclerView.setAdapter(mAdapter);
-
-    }
-     */
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        token = FirebaseInstanceId.getInstance().getToken();
+
+
         //TODO : todoList, titleList 에 할일 목록 넣기
         //data setting
-        ArrayList<TodoListData> tld = new ArrayList<>();
-        ArrayList<ArrayList<TodoListData>> routine = new ArrayList<>();
         titleList = new ArrayList<>();
         todoList = new ArrayList<>();
-        tld.add(new TodoListData("밥 먹기", "#ff1616"));
-        tld.add(new TodoListData("개발하기", "#ff1616"));
-        for(int i = 0; i < 7; i++){
-            todoList.add(tld);
-            titleList.add(i+"번째 할 일 " );
+        try {
+            JSONObject req = new JSONObject();
+            req.put("token", token);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_main, req.toString(), App.JSONcontentsType).execute().get();
+
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                JSONArray goalJarr = res.getJSONArray("goals");
+                JSONArray titleJarr = res.getJSONArray("titles");
+                Log.i("length", ": "+goalJarr.length());
+                for(int i = 0 ; i < goalJarr.length() ; i++){
+                    titleList.add(titleJarr.getString(i));
+                    JSONObject goal = goalJarr.getJSONObject(i);
+                    ArrayList<TodoListData> tld = new ArrayList<>();
+                    JSONArray todos = goal.getJSONArray("todo");
+                    for(int j = 0 ; j < todos.length() ; j++){
+                        tld.add(new TodoListData(todos.getString(j), "#ff1616"));
+                    }
+                    JSONArray todayRoutines;
+                    Calendar cal= Calendar.getInstance();
+                    switch (cal.get(Calendar.DAY_OF_WEEK)){
+                        case 1:
+                            todayRoutines = goal.getJSONArray("sun");
+                            break;
+                        case 2:
+                            todayRoutines = goal.getJSONArray("mon");
+                            break;
+                        case 3:
+                            todayRoutines = goal.getJSONArray("tue");
+                            break;
+                        case 4:
+                            todayRoutines = goal.getJSONArray("wed");
+                            break;
+                        case 5:
+                            todayRoutines = goal.getJSONArray("thu");
+                            break;
+                        case 6:
+                            todayRoutines = goal.getJSONArray("fri");
+                            break;
+                        default:
+                            todayRoutines = res.getJSONArray("sat");
+                            break;
+                    }
+                    for(int j = 0 ; j < todayRoutines.length() ; j++){
+                        tld.add(new TodoListData(todayRoutines.getString(j), "#ff1616"));
+                    }
+                    todoList.add(tld);
+                }
+            }
+        } catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);

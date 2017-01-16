@@ -19,24 +19,41 @@ public class RoutineAdapter extends FragmentStatePagerAdapter {
     private RoutineFragment saturdayFragment;
     private RoutineFragment sundayFragment;
 
+    int from;
 
-    public RoutineAdapter(FragmentManager fm, ArrayList<TodoListData> mon, ArrayList<TodoListData> tue, ArrayList<TodoListData> wed, ArrayList<TodoListData> thur, ArrayList<TodoListData> fri, ArrayList<TodoListData> sat,ArrayList<TodoListData> sun){
+
+    public RoutineAdapter(FragmentManager fm, ArrayList<TodoListData> mon, ArrayList<TodoListData> tue, ArrayList<TodoListData> wed, ArrayList<TodoListData> thur, ArrayList<TodoListData> fri, ArrayList<TodoListData> sat,ArrayList<TodoListData> sun, int from){
         super(fm);
         mondayFragment = new RoutineFragment();
         mondayFragment.setTodoList(mon);
+        mondayFragment.setDay(0);
+        mondayFragment.setFrom(from);
         tuesdayFragment = new RoutineFragment();
         tuesdayFragment.setTodoList(tue);
+        tuesdayFragment.setDay(1);
+        tuesdayFragment.setFrom(from);
         wednesdayFragment = new RoutineFragment();
         wednesdayFragment.setTodoList(wed);
+        wednesdayFragment.setDay(2);
+        wednesdayFragment.setFrom(from);
         thursdayFragment = new RoutineFragment();
         thursdayFragment.setTodoList(thur);
+        thursdayFragment.setDay(3);
+        thursdayFragment.setFrom(from);
         fridayFragment = new RoutineFragment();
         fridayFragment.setTodoList(fri);
+        fridayFragment.setDay(4);
+        fridayFragment.setFrom(from);
         saturdayFragment = new RoutineFragment();
         saturdayFragment.setTodoList(sat);
+        saturdayFragment.setDay(5);
+        saturdayFragment.setFrom(from);
         sundayFragment = new RoutineFragment();
         sundayFragment.setTodoList(sun);
+        sundayFragment.setDay(6);
+        sundayFragment.setFrom(from);
     }
+
 
     @Override
     public Fragment getItem(int position) {

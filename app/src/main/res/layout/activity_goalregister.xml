@@ -253,6 +253,31 @@
 
 
         <!-- 월화수목금토일 루틴 입력 창 들어갈 곳 -->
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/routine_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            card:cardCornerRadius="3dp">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/routine_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite" />
+
+
+            <com.example.q.pacemaker.NonSwipeableViewPager
+                android:id="@+id/routine_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorWhite" />
+
+
+        </android.support.v7.widget.CardView>
 
 
         <LinearLayout
