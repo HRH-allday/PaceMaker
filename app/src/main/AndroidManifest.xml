@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -16,10 +16,9 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -38,20 +37,18 @@
         <activity
             android:name=".MainActivity"
             android:label="오늘의 할 일"
-            android:theme="@style/AppThemeNoActionBar"/>
+            android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="로그인"
-            android:theme="@style/AppThemeNoActionBar">
-        </activity>
+            android:theme="@style/AppThemeNoActionBar"></activity>
         <activity
             android:name=".CommunityGoals"
-            android:label="커뮤니티"/>
+            android:label="커뮤니티" />
         <activity android:name=".GoalRegisterActivity" />
         <activity
             android:name=".GoalActivity"
-            android:theme="@style/AppThemeNoActionBar"/>
-
+            android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".CommunityActivity"
             android:theme="@style/AppThemeNoActionBar" />
@@ -61,6 +58,21 @@
             android:label="채팅방"
             android:theme="@style/AppTheme" />
 
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBF_K83_WMZkfmc4fMvwmlkaF7f3LRv_ao" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"/>
     </application>
 
 </manifest>
