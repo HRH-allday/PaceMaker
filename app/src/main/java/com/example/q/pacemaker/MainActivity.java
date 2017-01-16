@@ -3,10 +3,14 @@ package com.example.q.pacemaker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mainLayoutManager;
     private ArrayList<ArrayList<TodoListData>> todoList;
     private ArrayList<String> titleList;
+
+    private String[] mPlanetTitles = {"1번","2번"};
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
 
     public static UserInfo myInfo = new UserInfo("홍영규", "testurl", "1234");
 
@@ -70,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
      */
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +97,31 @@ public class MainActivity extends AppCompatActivity {
             titleList.add(i+"번째 할 일 " );
         }
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(final MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.go_main:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.go_community:
+                        intent = new Intent(getApplicationContext(), CommunityGoals.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    default:
+                        break;
+
+                }
+                return false;
+
+            }
+
+        });
 
 
 

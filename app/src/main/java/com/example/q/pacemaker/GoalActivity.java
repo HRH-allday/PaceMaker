@@ -2,6 +2,7 @@ package com.example.q.pacemaker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -87,6 +88,37 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         customizeDatas.add(cd2);
         mTodoList = tld;
         mRoutineList = routine;
+
+        // nav drawer setting
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(final MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.go_main:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.go_community:
+                        intent = new Intent(getApplicationContext(), CommunityGoals.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    default:
+                        break;
+
+                }
+                return false;
+
+            }
+
+        });
+
+
+
+
 
         // todo card
         todoView = (CardView) findViewById(R.id.cardview);

@@ -27,8 +27,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="오늘의 할 일">
-        </activity>
+            android:label="오늘의 할 일"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity
             android:name=".CommunityGoals"
             android:label="커뮤니티">
