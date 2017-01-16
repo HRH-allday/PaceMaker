@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:background="@color/colorWhite" >
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="채팅방 만들기"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:textSize="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:layout_marginTop="60dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="제목"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <EditText
+                android:id="@+id/chat_room_name"
+                android:inputType="textShortMessage"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:layout_marginTop="102dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/register_public_label"
+                android:text="공개여부"
+                android:textSize="18sp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1.4"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                android:gravity="center|right"/>
+
+            <RadioGroup
+                android:id="@+id/chat_radio_group"
+                android:layout_width="0dp"
+                android:layout_weight="2.6"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/chat_public"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="true"
+                    android:text="공개"/>
+                <RadioButton
+                    android:id="@+id/chat_private"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:text="비공개"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightDark"
+                android:text="취소"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="140dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightDark"
+                android:text="확인"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

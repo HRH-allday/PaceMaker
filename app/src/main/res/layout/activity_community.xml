@@ -117,7 +117,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/main_community"
+        android:id="@+id/enter_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center"

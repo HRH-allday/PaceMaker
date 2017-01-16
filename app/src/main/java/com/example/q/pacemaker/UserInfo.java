@@ -7,8 +7,10 @@ package com.example.q.pacemaker;
 public class UserInfo {
     public String userName;
     public String url;
+    public String token;
 
-    public UserInfo(String userName, String url){
+    public UserInfo(String userName, String url, String token){
+        this.token = token;
         this.userName = userName;
         this.url = url;
     }

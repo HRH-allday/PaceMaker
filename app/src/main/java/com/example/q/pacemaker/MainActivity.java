@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ArrayList<TodoListData>> todoList;
     private ArrayList<String> titleList;
 
+    public static UserInfo myInfo = new UserInfo("홍영규", "testurl", "1234");
+
 
 /*
     @Override

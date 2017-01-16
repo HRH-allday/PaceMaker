@@ -34,11 +34,10 @@ public class PostThread extends Thread {
     public void run() {
         super.run();
         Log.i("entered","hi");
+        String str = "";
         try {
             u = new URL(ec2url + route);
-            Log.i("connected", "");
             huc = (HttpURLConnection) u.openConnection();
-            Log.i("open", "");
             huc.setRequestMethod("POST");
             huc.setDoInput(true);
             huc.setDoOutput(true);
@@ -51,12 +50,17 @@ public class PostThread extends Thread {
             InputStream is = huc.getInputStream();
             byte[] arr = new byte[is.available()];
             is.read(arr);
+            str = new String(arr, "UTF-8");
             is.close();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ChatCreateDialog.rid = str;
+        ChatCreateDialog.end_flag = true;
+
     }
+
 
 }

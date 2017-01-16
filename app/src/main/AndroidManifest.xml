@@ -41,6 +41,12 @@
         <activity
             android:name=".CommunityActivity"
             android:theme="@style/AppThemeNoActionBar"/>
+        <activity
+            android:name=".ChatActivity"/>
+        <activity
+            android:name=".ChatRoomActivity"
+            android:label="채팅방"
+            android:theme="@style/AppTheme"/>
 
     </application>
 

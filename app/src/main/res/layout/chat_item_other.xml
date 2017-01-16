@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left">
+
+    <TextView
+        android:id="@+id/otherMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is test message."
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@drawable/rounded_corner_other"
+        android:padding="16dp"
+        android:textColor="#000" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="-6dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/user_frame"
+        android:layout_toRightOf="@+id/user_frame"
+        android:layout_toEndOf="@+id/user_frame"
+        android:src="@drawable/arrow_bg2" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/user_frame"
+        android:layout_width="40dp"
+        android:layout_height="55dp"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hhj" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/white_margin" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="한효주"
+            android:textAlignment="center"
+            android:textSize="10dp" />
+    </FrameLayout>
+</RelativeLayout>
