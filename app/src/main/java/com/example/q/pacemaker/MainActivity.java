@@ -12,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.example.q.pacemaker.Adapters.ChatRoomListAdapter;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -168,6 +166,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton googlemap = (FloatingActionButton) findViewById(R.id.main_googlemap);
+        googlemap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });

@@ -37,7 +37,7 @@ public class ChatRoomActivity extends Activity {
 
         recyclerViewChatRoom = (RecyclerView) findViewById(R.id.recycler_view_chatroom);
 
-        staggeredGridLayoutManagerChatRoom = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManagerChatRoom = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         chatRoomListAdapter = new ChatRoomListAdapter(this, getTestGoalItem());
 
         enterChatButton = (FloatingActionButton) findViewById(R.id.make_chat);

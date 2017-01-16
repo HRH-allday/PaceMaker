@@ -26,4 +26,6 @@
     <string name="user_login_cancel">취소</string>
     <string name="user_login_continue">계속</string>
     <string name="chatroom_photo_description">채팅방 사진</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="confirm">확인</string>
 </resources>
