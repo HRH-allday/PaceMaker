@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray goalJarr = res.getJSONArray("goals");
                 JSONArray titleJarr = res.getJSONArray("titles");
                 JSONObject userData = res.getJSONObject("user");
+                Log.i("sent info", res.toString());
                 Log.i("length", ": "+goalJarr.length());
                 for(int i = 0 ; i < goalJarr.length() ; i++){
                     titleList.add(titleJarr.getString(i));

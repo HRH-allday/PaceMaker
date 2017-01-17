@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.q.pacemaker.GoalActivity;
+import com.example.q.pacemaker.App;
 import com.example.q.pacemaker.GoalDescriptionActivity;
 import com.example.q.pacemaker.R;
 import com.squareup.picasso.Picasso;
-import com.example.q.pacemaker.App;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +41,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.position = holder.getAdapterPosition();
         final JSONObject goalObj = goalArray.optJSONObject(position);
+        Log.i("goal info", goalObj.toString());
 
         try {
             String url = goalObj.getString("photo");
@@ -49,15 +49,19 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
             // holder.imageView.setImageBitmap(bmp);
             Picasso.with(activity.getApplicationContext()).load(url).into(holder.goalPhoto);
             holder.goalTitle.setText(goalObj.getString("title"));
-            holder.goalPeople.setText(goalObj.getString("people") + "명 참여중");
+            holder.goalPeople.setText(goalObj.getString("numPeople") + "명 참여중");
 
             // OnClickListener
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, GoalDescriptionActivity.class);
-                    // intent.putExtra("<field_name>", goalObj.toString());
-                    activity.startActivity(intent);
+                    try {
+                        Intent intent = new Intent(activity, GoalDescriptionActivity.class);
+                        intent.putExtra("pid", goalObj.getString("_id"));
+                        activity.startActivity(intent);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (JSONException e) {

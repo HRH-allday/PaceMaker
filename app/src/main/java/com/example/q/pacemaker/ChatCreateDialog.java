@@ -3,14 +3,12 @@ package com.example.q.pacemaker;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -125,7 +123,7 @@ public class ChatCreateDialog extends Dialog {
         };
 
         double random = Math.random();
-        int index = (int) (random * colors.length) + 1;
+        int index = (int) (random * colors.length);
         return colors[index];
     }
 }

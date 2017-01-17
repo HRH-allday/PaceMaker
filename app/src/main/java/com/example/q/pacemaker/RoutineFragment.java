@@ -131,8 +131,14 @@ public class RoutineFragment extends Fragment {
             }
         });
 
+
         backgroundList = (RecyclerView) view.findViewById(R.id.routine_recyclerview);
         backgroundList.setLayoutManager(mLayoutManager);
+
+        if(from == 2){
+            routineEdit.setVisibility(View.GONE);
+            routineButton.setVisibility(View.GONE);
+        }
 
         adapter = new TodoListAdapter(todoListDatas);
 

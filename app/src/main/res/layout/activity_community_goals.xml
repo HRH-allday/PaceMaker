@@ -1,78 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_community_goals"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.q.pacemaker.CommunityGoals">
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:fitsSystemWindows="true"
+    android:theme="@style/AppThemeNoActionBar">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_community_goals"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.q.pacemaker.CommunityGoals">
 
-        <TextView
-            android:id="@+id/community_category_near"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/goal_card_title_text_size"
-            android:text="@string/community_category_near"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="16dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"/>
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_community_near"
+            <TextView
+                android:id="@+id/community_category_near"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_size"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/community_category_near"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/goal_card_title_text_size" />
 
-        <TextView
-            android:id="@+id/community_category_topic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/goal_card_title_text_size"
-            android:text="@string/community_category_topic"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="16dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_community_topic"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_size"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/community_category_popular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/goal_card_title_text_size"
-            android:text="@string/community_category_popular"
-            android:textColor="@color/colorPrimary"
-            android:paddingLeft="16dp"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_community_near"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_size" />
+            </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_community_popular"
+            <TextView
+                android:id="@+id/community_category_topic"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/recycler_view_size"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/community_category_topic"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/goal_card_title_text_size" />
 
-    </LinearLayout>
-</ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_community_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_size" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/community_category_popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/community_category_popular"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/goal_card_title_text_size" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_community_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recycler_view_size" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/main_nav_list"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorWhite"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/drawer">
+
+
+    </android.support.design.widget.NavigationView>
+
+
+</android.support.v4.widget.DrawerLayout>

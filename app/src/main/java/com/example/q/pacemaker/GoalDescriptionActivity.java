@@ -2,44 +2,32 @@ package com.example.q.pacemaker;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.q.pacemaker.Adapters.GoalAdapter;
-import com.example.q.pacemaker.Utilities.Base64EncodeImage;
+import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,11 +44,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.q.pacemaker.MainActivity.cidList;
+import static com.example.q.pacemaker.MainActivity.myUserInfo;
+import static com.example.q.pacemaker.MainActivity.titleList;
 
 
 public class GoalDescriptionActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
@@ -80,6 +69,16 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
     private Bitmap goalImage;
     private Activity activity;
 
+    private String token;
+    private String photoUrl;
+    private String pid;
+    private String title;
+    private int numParticipants;
+    private String description;
+    private String datefrom;
+    private String dateto;
+
+
     private CardView description_routine_cardview;
     public TabLayout description_routine_tablayout;
     public RoutineAdapter description_routineAdapter;
@@ -90,7 +89,7 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
     public static JSONArray mWednesdayList = new JSONArray();
     public static JSONArray mThursdayList = new JSONArray();
     public static JSONArray mFridayList = new JSONArray();
-    public static JSONArray mSatdayList = new JSONArray();
+    public static JSONArray mSaturdayList = new JSONArray();
     public static JSONArray mSundayList = new JSONArray();
 
     SupportMapFragment mapFragment;
@@ -108,12 +107,118 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goaldescription);
         activity = this;
+        token = FirebaseInstanceId.getInstance().getToken();
+
+        Intent intentFrom = getIntent();
+        pid = intentFrom.getStringExtra("pid");
+
+
+        ArrayList<ArrayList<TodoListData>> mRoutineList = new ArrayList<>();
+
+        ArrayList<String> titleLists = new ArrayList<>();
+        ArrayList<String> cidLists = new ArrayList<>();
+
+
+        try {
+            JSONObject req = new JSONObject();
+            req.put("token", token);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_user_info, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                JSONObject userData = res.getJSONObject("user");
+                Log.i("userData", userData.toString());
+                JSONArray titles = userData.getJSONArray("goals_title");
+                JSONArray cids = userData.getJSONArray("goals_id");
+                for(int i = 0; i < titles.length() ; i++){
+                    titleLists.add(titles.getString(i));
+                    cidLists.add(cids.getString(i));
+                }
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject req = new JSONObject();
+            req.put("pid", pid);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_goal_info, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                Log.i("goal", res.toString());
+                JSONObject goalData = res.getJSONObject("goal");
+                title = goalData.getString("title");
+                description = goalData.getString("description");
+                mMondayList = goalData.getJSONArray("mon");
+                mTuesdayList = goalData.getJSONArray("tue");
+                mWednesdayList = goalData.getJSONArray("wed");
+                mThursdayList = goalData.getJSONArray("thu");
+                mFridayList = goalData.getJSONArray("fri");
+                mSaturdayList = goalData.getJSONArray("sat");
+                mSundayList = goalData.getJSONArray("sun");
+                photoUrl = goalData.getString("photo");
+                latitude = goalData.getString("latitude");
+                longitude = goalData.getString("longitude");
+                numParticipants = goalData.getInt("numPeople");
+                datefrom = goalData.getString("dateFrom");
+                dateto = goalData.getString("dateTo");
+                ArrayList<TodoListData> tlds = new ArrayList<>();
+                for(int i = 0; i < mMondayList.length() ; i++){
+                    tlds.add(new TodoListData(mMondayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mTuesdayList.length() ; i++){
+                    tlds.add(new TodoListData(mTuesdayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mWednesdayList.length() ; i++){
+                    tlds.add(new TodoListData(mWednesdayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mThursdayList.length() ; i++){
+                    tlds.add(new TodoListData(mThursdayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mFridayList.length() ; i++){
+                    tlds.add(new TodoListData(mFridayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mSaturdayList.length() ; i++){
+                    tlds.add(new TodoListData(mSaturdayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
+                for(int i = 0; i < mSundayList.length() ; i++){
+                    tlds.add(new TodoListData(mSundayList.getString(i), "#ff1616"));
+                }
+                mRoutineList.add(tlds);
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
         description_photo = (ImageView) findViewById(R.id.description_photo);
+
         description_goal_name = (TextView) findViewById(R.id.description_goal_name);
+        description_goal_name.setText(title);
+
         description_period = (TextView) findViewById(R.id.description_period);
+        description_period.setText(datefrom + " ~ " + dateto);
+
         description_people = (TextView) findViewById(R.id.description_people);
+        description_people.setText(numParticipants + "명 참여중");
+
         description_description = (TextView) findViewById(R.id.description_description);
+        description_description.setText(description);
+
         description_join_button = (Button) findViewById(R.id.description_join_button);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.description_map_view);
 
@@ -122,11 +227,54 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
         description_routine_tablayout = (TabLayout) findViewById(R.id.description_routine_tablayout);
 
         description_routine_viewpager = (ViewPager) findViewById(R.id.description_routine_viewpager);
-        description_routineAdapter = new RoutineAdapter(getSupportFragmentManager(), new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(), 0, "1");
-
+        description_routineAdapter =  new RoutineAdapter(getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6), 2, "2");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         mapFragment.getMapAsync(this);
+
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(final MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()){
+                    case R.id.go_main:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    case R.id.go_community:
+                        intent = new Intent(getApplicationContext(), CommunityGoals.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    default:
+                        break;
+
+                }
+                return false;
+
+            }
+
+        });
+
+        View viewNavHeader = navigationView.getHeaderView(0);
+        RoundedImageView profileImage = (RoundedImageView) viewNavHeader.findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(myUserInfo.url).into(profileImage);
+        TextView userName = (TextView) viewNavHeader.findViewById(R.id.username_profile);
+        userName.setText(myUserInfo.userName);
+
+        final Menu menu = navigationView.getMenu();
+        final SubMenu subMenu = menu.addSubMenu("나의 목표");
+        for (int i = 0; i < titleList.size() ; i++) {
+            Intent intentNav = new Intent(getApplicationContext(), GoalActivity.class);
+            intentNav.putExtra("cid", cidList.get(i));
+            subMenu.add(titleList.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
+        }
+
+
     }
 
     protected synchronized void buildGoogleApiClient()
@@ -143,6 +291,7 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
     public void onMapReady(GoogleMap map) {
         googleMap = map;
 
+        selectedPoint = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
         Marker selectedMarker = googleMap.addMarker(new MarkerOptions().position(selectedPoint));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPoint));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -256,8 +405,7 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
 
         description_join_button.setOnClickListener(joinButtonOnClicked);
 
-        goalImageUrl = "http://52.78.200.87:3000/static/images/img_148456074849257bc49d4c52527e08b0bae46d666f858.jpeg";
-        Picasso.with(activity.getApplicationContext()).load(goalImageUrl).into(description_photo);
+        Picasso.with(getApplicationContext()).load(photoUrl).into(description_photo);
 
         description_routine_tablayout.addTab(description_routine_tablayout.newTab().setText("월"));
         description_routine_tablayout.addTab(description_routine_tablayout.newTab().setText("화"));
@@ -270,6 +418,8 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
         description_routine_viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(description_routine_tablayout));
         description_routine_viewpager.setAdapter(description_routineAdapter);
         description_routine_tablayout.addOnTabSelectedListener(this);
+
+
     }
 
     @Override
@@ -278,13 +428,6 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
         if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
 
-        mMondayList = new JSONArray();
-        mTuesdayList = new JSONArray();
-        mWednesdayList = new JSONArray();
-        mThursdayList = new JSONArray();
-        mFridayList = new JSONArray();
-        mSatdayList = new JSONArray();
-        mSundayList = new JSONArray();
     }
 
     @Override
@@ -330,9 +473,23 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
     View.OnClickListener joinButtonOnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(activity, GoalActivity.class);
-            // intent.putExtra("<field_name>", goalObj.toString());
-            activity.startActivity(intent);
+
+            try {
+                JSONObject req = new JSONObject();
+                req.put("token", token);
+                req.put("pid", pid);
+
+                JSONObject res = new SendJSON(App.server_url + App.routing_user_follow, req.toString(), App.JSONcontentsType).execute().get();
+                if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                    Intent intent = new Intent(activity, GoalActivity.class);
+                    intent.putExtra("cid", res.getString("cid"));
+                    activity.startActivity(intent);
+
+                }
+            }catch (JSONException | InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
             /*
             // title, description, dateFrom, dateTo, public
             String title = register_title.getText().toString();

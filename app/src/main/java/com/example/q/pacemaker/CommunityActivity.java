@@ -82,7 +82,6 @@ public class CommunityActivity extends Activity {
             e.printStackTrace();
         }
 
-        //TODO: 동참인원 정보 받아와서 userList에 채워넣기 username, 사진 url 필요
         try {
             JSONObject req = new JSONObject();
             req.put("pid", pid);
@@ -151,6 +150,7 @@ public class CommunityActivity extends Activity {
             }
 
         });
+
         View viewNavHeader = navigationView.getHeaderView(0);
         RoundedImageView profileImage = (RoundedImageView) viewNavHeader.findViewById(R.id.profile_image);
         Picasso.with(getApplicationContext()).load(myUserInfo.url).into(profileImage);

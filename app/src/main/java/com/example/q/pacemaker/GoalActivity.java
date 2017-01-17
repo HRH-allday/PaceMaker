@@ -41,7 +41,6 @@ import static com.example.q.pacemaker.R.id.todo;
  */
 
 public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
-    private ArrayList<CustomizeData> customizeDatas = new ArrayList<>();
     private CardView todoView;
     private CardView routineView;
 

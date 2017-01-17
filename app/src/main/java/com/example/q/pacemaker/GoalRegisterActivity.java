@@ -169,6 +169,13 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
 
 
 
+        mMondayList = new JSONArray();
+        mTuesdayList = new JSONArray();
+        mWednesdayList = new JSONArray();
+        mThursdayList = new JSONArray();
+        mFridayList = new JSONArray();
+        mSatdayList = new JSONArray();
+        mSundayList = new JSONArray();
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, keyword_hash);
@@ -479,13 +486,6 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
 
-        mMondayList = new JSONArray();
-        mTuesdayList = new JSONArray();
-        mWednesdayList = new JSONArray();
-        mThursdayList = new JSONArray();
-        mFridayList = new JSONArray();
-        mSatdayList = new JSONArray();
-        mSundayList = new JSONArray();
     }
 
     @Override
@@ -681,6 +681,7 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
 
                 JSONObject res = new SendJSON(App.server_url + App.routing_new_goal_register, req.toString(), App.JSONcontentsType).execute().get();
                 if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                    Log.i("register result : " , res.toString());
                     String cloneID = res.getString("cid");
                     Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
                     intent.putExtra("cid", cloneID);
