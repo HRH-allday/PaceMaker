@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view_chatroom"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:id="@+id/chatRoomLayout"
@@ -16,13 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/chatroom_photo_description"
-            android:scaleType="centerCrop"
-            android:src="@drawable/loading" />
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#20000000"/>
+            android:background="#40000000"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/chatroom_name"
@@ -30,10 +31,10 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_regular"
             android:text="@string/test"
+            android:textStyle="bold"
             android:textColor="#ffffff"
-            android:background="#80000000"
             android:paddingBottom="8dp"
-            android:paddingTop="8dp"
+            android:paddingTop="40dp"
             android:gravity="center_horizontal"/>
 
         <TextView
@@ -43,8 +44,7 @@
             android:textSize="@dimen/text_small"
             android:text="@string/test"
             android:textColor="#ffffff"
-            android:background="#80000000"
-            android:padding="8dp"
+            android:padding="20dp"
             android:gravity="end|bottom"
             android:layout_alignParentBottom="true"/>
 

@@ -45,6 +45,7 @@
             android:name=".CommunityGoals"
             android:label="커뮤니티" />
         <activity android:name=".GoalRegisterActivity" />
+        <activity android:name=".GoalDescriptionActivity" />
         <activity
             android:name=".GoalActivity"
             android:theme="@style/AppThemeNoActionBar" />

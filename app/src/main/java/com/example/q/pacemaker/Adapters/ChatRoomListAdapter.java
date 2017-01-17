@@ -2,6 +2,7 @@ package com.example.q.pacemaker.Adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -49,7 +50,8 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
             String url = chatRoomObj.getString("photo");
             // Bitmap bmp = new LoadImage().execute(url).get();
             // holder.imageView.setImageBitmap(bmp);
-            Picasso.with(activity.getApplicationContext()).load(url).into(holder.chatRoomPhoto);
+            // Picasso.with(activity.getApplicationContext()).load(url).into(holder.chatRoomPhoto);
+            holder.chatRoomPhoto.setBackgroundColor(Color.parseColor(getRandomColor()));
             holder.chatRoomTitle.setText(chatRoomObj.getString("title"));
             holder.chatRoomPeople.setText(chatRoomObj.getString("people") + "명 참여중");
 
@@ -104,6 +106,20 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
             chatRoomTitle.setTypeface(App.NanumBarunGothicLight);
             chatRoomPeople.setTypeface(App.NanumBarunGothicLight);
         }
+    }
+
+    public String getRandomColor() {
+        String[] colors = {
+                "#329ebb",
+                "#b1bf52",
+                "#ebdf41",
+                "#d53492",
+                "#e48c5c"
+        };
+
+        double random = Math.random();
+        int index = (int) (random * colors.length);
+        return colors[index];
     }
 }
 
