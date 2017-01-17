@@ -44,13 +44,6 @@
                 android:shadowRadius="2.0">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#60000000"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"/>
-
-                <ImageView
                     android:id="@+id/goal_clone_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -58,6 +51,13 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/harvard_business"
                     app:layout_collapseMode="parallax" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#60000000"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -232,8 +232,12 @@
                     android:id="@+id/share_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorLight"
-                    android:text="share" />
+                    android:text="공유하기"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_regular"
+                    android:layout_marginTop="10dp"
+                    style="@style/Widget.AppCompat.Button.Colored"/>
 
 
             </LinearLayout>

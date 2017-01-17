@@ -4,8 +4,10 @@ import android.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.q.pacemaker.Utilities.Base64EncodeImage;
 import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.android.gms.common.ConnectionResult;
@@ -54,6 +57,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -241,7 +246,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         collapsingToolbarLayout.setTitle(title);
 
         // Maps
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.register_map_view);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.goal_map_fragment);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mapFragment.getMapAsync(this);
 
@@ -807,5 +812,51 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SELECT_LOCATION:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        String location = data.getData().toString();
+                        String delim = "[/]";
+                        String[] tokens = location.split(delim);
+                        latitude = tokens[0];
+                        longitude = tokens[1];
+
+                        selectedPoint = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                        googleMap.clear();
+                        Marker selectedMarker = googleMap.addMarker(new MarkerOptions().position(selectedPoint));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPoint));
+                        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                        Log.e("LOCATION : ", location);
+                        Log.e("latitude", latitude);
+                        Log.e("longitude", longitude);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            case  REQUEST_CODE_GPS:
+                //Log.d(TAG,""+resultCode);
+                //if (resultCode == RESULT_OK)
+                //사용자가 GPS 활성 시켰는지 검사
+                if ( locationManager == null)
+                    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+                if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                {
+                    // GPS 가 ON으로 변경되었을 때의 처리.
+                    setGPS = true;
+                    mapFragment.getMapAsync(GoalActivity.this);
+                }
+
+            default:
+                break;
+        }
     }
 }
