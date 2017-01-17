@@ -60,7 +60,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
-
 public class GoalRegisterActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener,
         GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener,
@@ -224,7 +223,6 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
 
 
     }
-
 
     //GPS 활성화를 위한 다이얼로그 보여주기
     private void showGPSDisabledAlertToUser()
