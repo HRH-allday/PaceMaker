@@ -196,10 +196,12 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
 
     @Override
     public void onMapLongClick(LatLng point) {
-        googleMap.clear();
-        selectedPoint = point;
-        selectedLocation = new MarkerOptions().position(selectedPoint).title("선택한 위치").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).draggable(true);
-        selectedMarker = googleMap.addMarker(selectedLocation);
+        if (!hasExtra) {
+            googleMap.clear();
+            selectedPoint = point;
+            selectedLocation = new MarkerOptions().position(selectedPoint).title("선택한 위치").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).draggable(true);
+            selectedMarker = googleMap.addMarker(selectedLocation);
+        }
     }
 
     public boolean checkLocationPermission()
@@ -314,7 +316,7 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
             try {
                 for (int i = 0; i < LatLngArray.length(); i++) {
                     Double lat = Double.parseDouble(LatLngArray.getJSONObject(i).getString("latitude"));
-                    Double lng = Double.parseDouble(LatLngArray.getJSONObject(i).getString("latitude"));
+                    Double lng = Double.parseDouble(LatLngArray.getJSONObject(i).getString("longitude"));
                     LatLng goal_clone_point = new LatLng(lat, lng);
                     Marker goal_clone_marker = googleMap.addMarker(new MarkerOptions().position(goal_clone_point));
                 }

@@ -833,6 +833,16 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                         googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPoint));
                         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
+                        JSONObject jobj = new JSONObject();
+                        jobj.put("cid", cloneID);
+                        jobj.put("latitude", latitude);
+                        jobj.put("longitude", longitude);
+
+                        JSONObject res = new SendJSON(App.server_url + App.routing_update_clone_location, jobj.toString(), App.JSONcontentsType).execute().get();
+                        if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                            Log.i("UPDATED", "Location");
+                        }
+
                         Log.e("LOCATION : ", location);
                         Log.e("latitude", latitude);
                         Log.e("longitude", longitude);
