@@ -165,8 +165,8 @@ public class CommunityActivity extends AppCompatActivity implements GoogleApiCli
                 for (int i = 0; i < clones.length(); i++) {
                     JSONObject clone = clones.getJSONObject(i);
                     JSONObject LatLngObj = new JSONObject();
-                    LatLngObj.put("latitude", clone.getString(latitude));
-                    LatLngObj.put("longitude", clone.getString(longitude));
+                    LatLngObj.put("latitude", clone.getString("latitude"));
+                    LatLngObj.put("longitude", clone.getString("longitude"));
                     LatLngArray.put(LatLngObj);
                 }
             }
