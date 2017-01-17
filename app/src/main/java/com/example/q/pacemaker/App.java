@@ -30,6 +30,7 @@ public class App extends Application{
     public static final String routing_get_chatroom = "/get_chatroom";
     public static final String routing_new_chat = "/new_chat";
     public static final String routing_check_register = "/check_register";
+    public static final String routing_get_clone_list = "/get_clone_list";
 
     public static final String JSONcontentsType = "application/json";
 
