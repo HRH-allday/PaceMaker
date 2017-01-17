@@ -2,6 +2,7 @@ package com.example.q.pacemaker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -10,15 +11,18 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.q.pacemaker.Utilities.SendJSON;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +30,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import static com.example.q.pacemaker.R.id.todo;
 
 /**
  * Created by q on 2017-01-14.
@@ -88,10 +94,11 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        cloneID = intent.getStringExtra("cloneID");
+        cloneID = intent.getStringExtra("cid");
 
         ArrayList<TodoListData> todoLists = new ArrayList<>();
         ArrayList<ArrayList<TodoListData>> mRoutineList = new ArrayList<>();
+        ArrayList<TodoListData> memoLists = new ArrayList<>();
 
         try {
             JSONObject req = new JSONObject();
@@ -117,6 +124,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
             JSONObject res = new SendJSON(App.server_url + App.routing_goal_clone_info, req.toString(), App.JSONcontentsType).execute().get();
             if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                Log.i("clone", res.toString());
                 JSONObject cloneData = res.getJSONObject("clone");
                 title = cloneData.getString("title");
                 mMondayList = cloneData.getJSONArray("mon");
@@ -127,49 +135,60 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 mSaturdayList = cloneData.getJSONArray("sat");
                 mSundayList = cloneData.getJSONArray("sun");
                 photoUrl = cloneData.getString("photo");
-                mMemoList = cloneData.getJSONArray("goals_id");
+                Log.i("photo", photoUrl);
+                mMemoList = cloneData.getJSONArray("memo");
                 mTodoList = cloneData.getJSONArray("todo");
                 for(int i = 0; i < mTodoList.length() ; i++){
                     todoLists.add(new TodoListData(mTodoList.getString(i), "#ff1616"));
                 }
+                for(int i = 0; i < mMemoList.length() ; i++){
+                    memoLists.add(new TodoListData(mMemoList.getString(i), "#ff1616"));
+                }
+                ArrayList<TodoListData> tlds = new ArrayList<>();
                 for(int i = 0; i < mMondayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mMondayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
+                    tlds.add(new TodoListData(mMondayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mTuesdayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
                     tlds.add(new TodoListData(mTuesdayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mWednesdayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mWednesdayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
+                    tlds.add(new TodoListData(mWednesdayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mThursdayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mThursdayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
+                    tlds.add(new TodoListData(mThursdayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mFridayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mFridayList.getString(i), "#ff1616"));
+                    tlds.add(new TodoListData(mFridayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mSaturdayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mSaturdayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
+                    tlds.add(new TodoListData(mSaturdayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
+                tlds = new ArrayList<>();
                 for(int i = 0; i < mSundayList.length() ; i++){
-                    ArrayList<TodoListData> tlds = new ArrayList<>();
-                    todoLists.add(new TodoListData(mSundayList.getString(i), "#ff1616"));
-                    mRoutineList.add(tlds);
+                    tlds.add(new TodoListData(mSundayList.getString(i), "#ff1616"));
                 }
+                mRoutineList.add(tlds);
             }
         }catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        //Imageview setting
+        ImageView goalCloneImage = (ImageView) findViewById(R.id.goal_clone_image);
+        Picasso.with(getApplicationContext()).load(photoUrl).into(goalCloneImage);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(title);
+
 
         // nav drawer setting
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);
@@ -237,7 +256,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 }
             }
         });
-        todoTextView = (TextView) findViewById(R.id.todo);
+        todoTextView = (TextView) findViewById(todo);
         todoRecyclerView = (RecyclerView)  findViewById(R.id.todoRecyclerView);
         mLayoutManager = new LinearLayoutManager(this);
         todoRecyclerView.setLayoutManager(mLayoutManager);
@@ -259,7 +278,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         tabLayout.addTab(tabLayout.newTab().setText("일"));
 
         viewPager = (ViewPager) findViewById(R.id.routine_viewpager);
-        adapter = new RoutineAdapter(getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6), 1);
+        adapter = new RoutineAdapter(getSupportFragmentManager(), mRoutineList.get(0),mRoutineList.get(1),mRoutineList.get(2),mRoutineList.get(3),mRoutineList.get(4),mRoutineList.get(5),mRoutineList.get(6), 1, cloneID);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -273,7 +292,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         memoRecyclerView = (RecyclerView)  findViewById(R.id.memoRecyclerView);
         memoLayoutManager = new LinearLayoutManager(this);
         memoRecyclerView.setLayoutManager(memoLayoutManager);
-        memoAdapter = new TodoListAdapter(new ArrayList<TodoListData>());
+        memoAdapter = new TodoListAdapter(memoLists);
         memoRecyclerView.setAdapter(memoAdapter);
 
         String memo;
@@ -283,8 +302,22 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 String edit = memoEditView.getText().toString().trim();
                 if(edit.equals(""))
                     return;
-                else
-                    ((TodoListAdapter) memoAdapter).addItem(new TodoListData(edit, "#ff1616"), 0);
+                else {
+                    memoEditView.setText("");
+                    mMemoList.put(edit);
+                    try {
+                        JSONObject req = new JSONObject();
+                        req.put("new_memo", edit);
+                        req.put("cid", cloneID);
+
+                        JSONObject res = new SendJSON(App.server_url + App.routing_add_memo, req.toString(), App.JSONcontentsType).execute().get();
+                        if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                            ((TodoListAdapter) memoAdapter).addItem(new TodoListData(edit, "#ff1616"), 0);
+                        }
+                    }catch (JSONException | InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         });

@@ -89,7 +89,7 @@ public class RoutineFragment extends Fragment {
                         req.put("new_routine", todo);
                         req.put("day",day);
 
-                        JSONObject res = new SendJSON(App.server_url + App.routing_user_info, req.toString(), App.JSONcontentsType).execute().get();
+                        JSONObject res = new SendJSON(App.server_url + App.routing_add_routine, req.toString(), App.JSONcontentsType).execute().get();
                         if (res != null && res.has("result") && res.getString("result").equals("success")) {
 
                         }

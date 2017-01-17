@@ -22,36 +22,45 @@ public class RoutineAdapter extends FragmentStatePagerAdapter {
     int from;
 
 
-    public RoutineAdapter(FragmentManager fm, ArrayList<TodoListData> mon, ArrayList<TodoListData> tue, ArrayList<TodoListData> wed, ArrayList<TodoListData> thur, ArrayList<TodoListData> fri, ArrayList<TodoListData> sat,ArrayList<TodoListData> sun, int from){
+
+
+    public RoutineAdapter(FragmentManager fm, ArrayList<TodoListData> mon, ArrayList<TodoListData> tue, ArrayList<TodoListData> wed, ArrayList<TodoListData> thur, ArrayList<TodoListData> fri, ArrayList<TodoListData> sat,ArrayList<TodoListData> sun, int from, String id){
         super(fm);
         mondayFragment = new RoutineFragment();
         mondayFragment.setTodoList(mon);
         mondayFragment.setDay(0);
         mondayFragment.setFrom(from);
+        mondayFragment.setCid(id);
         tuesdayFragment = new RoutineFragment();
         tuesdayFragment.setTodoList(tue);
         tuesdayFragment.setDay(1);
         tuesdayFragment.setFrom(from);
+        tuesdayFragment.setCid(id);
         wednesdayFragment = new RoutineFragment();
         wednesdayFragment.setTodoList(wed);
         wednesdayFragment.setDay(2);
         wednesdayFragment.setFrom(from);
+        wednesdayFragment.setCid(id);
         thursdayFragment = new RoutineFragment();
         thursdayFragment.setTodoList(thur);
         thursdayFragment.setDay(3);
         thursdayFragment.setFrom(from);
+        thursdayFragment.setCid(id);
         fridayFragment = new RoutineFragment();
         fridayFragment.setTodoList(fri);
         fridayFragment.setDay(4);
         fridayFragment.setFrom(from);
+        fridayFragment.setCid(id);
         saturdayFragment = new RoutineFragment();
         saturdayFragment.setTodoList(sat);
         saturdayFragment.setDay(5);
         saturdayFragment.setFrom(from);
+        saturdayFragment.setCid(id);
         sundayFragment = new RoutineFragment();
         sundayFragment.setTodoList(sun);
         sundayFragment.setDay(6);
         sundayFragment.setFrom(from);
+        sundayFragment.setCid(id);
     }
 
 

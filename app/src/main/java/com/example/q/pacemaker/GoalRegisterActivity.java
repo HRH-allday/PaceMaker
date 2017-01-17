@@ -1,6 +1,5 @@
 package com.example.q.pacemaker;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -9,8 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -44,16 +41,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -63,15 +55,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
-
-import static android.R.attr.data;
 
 
 public class GoalRegisterActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
@@ -202,7 +189,7 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("일"));
 
         viewPager = (ViewPager) findViewById(R.id.routine_viewpager);
-        routineAdapter = new RoutineAdapter(getSupportFragmentManager(), new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(), 0);
+        routineAdapter = new RoutineAdapter(getSupportFragmentManager(), new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(),new ArrayList<TodoListData>(), 0, "1");
         viewPager.setAdapter(routineAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -491,6 +478,14 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         super.onResume();
         if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
+
+        mMondayList = new JSONArray();
+        mTuesdayList = new JSONArray();
+        mWednesdayList = new JSONArray();
+        mThursdayList = new JSONArray();
+        mFridayList = new JSONArray();
+        mSatdayList = new JSONArray();
+        mSundayList = new JSONArray();
     }
 
     @Override
@@ -688,7 +683,7 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
                 if (res != null && res.has("result") && res.getString("result").equals("success")) {
                     String cloneID = res.getString("cid");
                     Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
-                    intent.putExtra("cloneID", cloneID);
+                    intent.putExtra("cid", cloneID);
                     startActivity(intent);
                     finish();
                 }
@@ -699,17 +694,6 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         }
     };
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mMondayList = new JSONArray();
-        mTuesdayList = new JSONArray();
-        mWednesdayList = new JSONArray();
-        mThursdayList = new JSONArray();
-        mFridayList = new JSONArray();
-        mSatdayList = new JSONArray();
-        mSundayList = new JSONArray();
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
