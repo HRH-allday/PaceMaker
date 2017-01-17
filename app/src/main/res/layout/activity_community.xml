@@ -29,7 +29,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+                android:id="@+id/community_collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -38,6 +38,7 @@
                 app:title="@string/app_name">
 
                 <ImageView
+                    android:id="@+id/community_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
@@ -67,10 +68,28 @@
                 android:paddingBottom="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="36dp">
+                android:paddingTop="30dp">
+
+                <TextView
+                    android:text="함께하는 사람들"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/user_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </android.support.v7.widget.RecyclerView>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/community_board"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

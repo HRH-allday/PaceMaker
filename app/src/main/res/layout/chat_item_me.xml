@@ -32,17 +32,12 @@
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView">
 
-        <ImageView
+        <com.example.q.pacemaker.Utilities.RoundedImageView
             android:id="@+id/user_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:scaleType="centerCrop"
             android:src="@drawable/hhj" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/white_margin" />
 
         <TextView
             android:id="@+id/user_name"

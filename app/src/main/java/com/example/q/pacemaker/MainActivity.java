@@ -12,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.TextView;
 
+import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public String token;
 
     public static UserInfo myInfo = new UserInfo("홍영규", "testurl", "1234");
+
+    public static UserInfo myUserInfo;
 
 
 
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             if (res != null && res.has("result") && res.getString("result").equals("success")) {
                 JSONArray goalJarr = res.getJSONArray("goals");
                 JSONArray titleJarr = res.getJSONArray("titles");
+                JSONObject userData = res.getJSONObject("user");
                 Log.i("length", ": "+goalJarr.length());
                 for(int i = 0 ; i < goalJarr.length() ; i++){
                     titleList.add(titleJarr.getString(i));
@@ -99,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     todoList.add(tld);
                 }
+
+                myUserInfo = new UserInfo(userData.getString("name"), userData.getString("photo"), userData.getString("token"));
+
             }
         } catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -129,6 +138,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        View viewNavHeader = navigationView.getHeaderView(0);
+        RoundedImageView profileImage = (RoundedImageView) viewNavHeader.findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(myUserInfo.url).into(profileImage);
+        TextView userName = (TextView) viewNavHeader.findViewById(R.id.username_profile);
+        userName.setText(myUserInfo.userName);
 
         final Menu menu = navigationView.getMenu();
         final SubMenu subMenu = menu.addSubMenu("나의 목표");

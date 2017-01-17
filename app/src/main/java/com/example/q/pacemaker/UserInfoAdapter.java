@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -58,7 +60,7 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position).userName);
-        //Picasso.with(context).load(mDataset.get(position).url).into(holder.mImageView);
+        Picasso.with(context).load(mDataset.get(position).url).into(holder.mImageView);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

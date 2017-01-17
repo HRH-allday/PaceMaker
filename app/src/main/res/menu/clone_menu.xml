@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/go_community_clone"
+            android:checked="false"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="커뮤니티" />
+
+        <item
+            android:id="@+id/go_goal_info"
+            android:checked="false"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:title="소개보기" />
+
+        <item
+            android:id="@+id/delete_clone"
+            android:checked="false"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="목표삭제" />
+
+
+    </group>
+</menu>

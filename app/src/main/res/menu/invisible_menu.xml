@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_button"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/AppTheme"
+    tools:context=".MainActivity" >
+    <item
+        android:id="@+id/action_button"
         android:icon="@drawable/ic_more_vert_white_24dp"
         android:title="액션버튼"
-        app:showAsAction="always"/>
+        app:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/go_community_clone"
+                android:checked="false"
+                android:icon="@drawable/ic_people_black_24dp"
+                android:title="커뮤니티"
+                app:showAsAction="always" />
+
+            <item
+                android:id="@+id/go_goal_info"
+                android:checked="false"
+                android:icon="@drawable/ic_description_black_24dp"
+                android:title="소개보기"
+                app:showAsAction="always" />
+
+            <item
+                android:id="@+id/delete_clone"
+                android:checked="false"
+                android:icon="@drawable/ic_delete_black_24dp"
+                android:title="목표삭제"
+                app:showAsAction="always" />
+
+        </menu>
+    </item>
 
 </menu>

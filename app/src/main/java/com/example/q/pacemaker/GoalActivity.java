@@ -21,7 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -31,6 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.q.pacemaker.MainActivity.myUserInfo;
 import static com.example.q.pacemaker.R.id.todo;
 
 /**
@@ -58,9 +61,8 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private String cloneID;
     private String token;
     private String photoUrl;
+    private String pid;
 
-    private ArrayList<String> titleList = new ArrayList<>();
-    private ArrayList<String> cidList = new ArrayList<>();
 
 
     public TextView todoTextView;
@@ -92,6 +94,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        token = FirebaseInstanceId.getInstance().getToken();
 
         Intent intent = getIntent();
         cloneID = intent.getStringExtra("cid");
@@ -100,6 +103,10 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         ArrayList<ArrayList<TodoListData>> mRoutineList = new ArrayList<>();
         ArrayList<TodoListData> memoLists = new ArrayList<>();
 
+        ArrayList<String> titleLists = new ArrayList<>();
+        ArrayList<String> cidLists = new ArrayList<>();
+
+
         try {
             JSONObject req = new JSONObject();
             req.put("token", token);
@@ -107,11 +114,12 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
             JSONObject res = new SendJSON(App.server_url + App.routing_user_info, req.toString(), App.JSONcontentsType).execute().get();
             if (res != null && res.has("result") && res.getString("result").equals("success")) {
                 JSONObject userData = res.getJSONObject("user");
+                Log.i("userData", userData.toString());
                 JSONArray titles = userData.getJSONArray("goals_title");
                 JSONArray cids = userData.getJSONArray("goals_id");
                 for(int i = 0; i < titles.length() ; i++){
-                    titleList.add(titles.getString(i));
-                    cidList.add(titles.getString(i));
+                    titleLists.add(titles.getString(i));
+                    cidLists.add(cids.getString(i));
                 }
             }
         }catch (JSONException | InterruptedException | ExecutionException e) {
@@ -127,6 +135,7 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 Log.i("clone", res.toString());
                 JSONObject cloneData = res.getJSONObject("clone");
                 title = cloneData.getString("title");
+                pid = cloneData.getString("pid");
                 mMondayList = cloneData.getJSONArray("mon");
                 mTuesdayList = cloneData.getJSONArray("tue");
                 mWednesdayList = cloneData.getJSONArray("wed");
@@ -217,12 +226,18 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         });
 
+        View viewNavHeader = navigationView.getHeaderView(0);
+        RoundedImageView profileImage = (RoundedImageView) viewNavHeader.findViewById(R.id.profile_image);
+        Picasso.with(getApplicationContext()).load(myUserInfo.url).into(profileImage);
+        TextView userName = (TextView) viewNavHeader.findViewById(R.id.username_profile);
+        userName.setText(myUserInfo.userName);
+
         final Menu menu = navigationView.getMenu();
         final SubMenu subMenu = menu.addSubMenu("나의 목표");
-        for (int i = 0; i < titleList.size() ; i++) {
+        for (int i = 0; i < titleLists.size() ; i++) {
             Intent intentNav = new Intent(getApplicationContext(), GoalActivity.class);
-            intent.putExtra("cid", cidList.get(i));
-            subMenu.add(titleList.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
+            intent.putExtra("cid", cidLists.get(i));
+            subMenu.add(titleLists.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
         }
 
 
@@ -353,13 +368,20 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if(id == R.id.action_button){
-            Intent intent = new Intent(getApplicationContext(), CommunityActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.go_community_clone:
+                Intent intent = new Intent(getApplicationContext(), CommunityActivity.class);
+                intent.putExtra("pid", pid);
+                startActivity(intent);
+                return true;
+            case R.id.go_goal_info:
+                return true;
+            case R.id.delete_clone:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 
     @Override
