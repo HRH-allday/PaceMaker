@@ -125,7 +125,7 @@ public class ChatCreateDialog extends Dialog {
         };
 
         double random = Math.random();
-        int index = (int) (random * colors.length) + 1;
+        int index = (int) (random * colors.length);
         return colors[index];
     }
 }

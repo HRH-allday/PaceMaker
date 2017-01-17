@@ -60,7 +60,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
-
 public class GoalRegisterActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
         GoogleApiClient.ConnectionCallbacks, LocationListener,
         GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener,
@@ -167,10 +166,6 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
         register_end_date.setTypeface(App.NanumBarunGothic);
         register_button.setTypeface(App.NanumBarunGothic);
 
-
-
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, keyword_hash);
         register_keyword.setAdapter(adapter);
 
@@ -217,7 +212,6 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
 
 
     }
-
 
     //GPS 활성화를 위한 다이얼로그 보여주기
     private void showGPSDisabledAlertToUser()
