@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -107,13 +109,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{
             MyMessageViewHolder holder = (MyMessageViewHolder) viewHolder;
             holder.mTextView.setText(mDataset.get(position).user.userName);
             holder.myMessage.setText(mDataset.get(position).message);
-            //Picasso.with(context).load(mDataset.get(position).user.url).into(holder.mImageView);
+            Picasso.with(context).load(mDataset.get(position).user.url).into(holder.mImageView);
         }
         else if (viewHolder.getItemViewType() == OTHERS){
             OtherMessageViewHolder holder = (OtherMessageViewHolder) viewHolder;
             holder.mTextView.setText(mDataset.get(position).user.userName);
             holder.otherMessage.setText(mDataset.get(position).message);
-            //Picasso.with(context).load(mDataset.get(position).user.url).into(holder.mImageView);
+            Picasso.with(context).load(mDataset.get(position).user.url).into(holder.mImageView);
         }
         else {
             UserEnteredViewHolder holder = (UserEnteredViewHolder) viewHolder;

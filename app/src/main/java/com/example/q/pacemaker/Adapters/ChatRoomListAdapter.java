@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +14,7 @@ import android.widget.TextView;
 
 import com.example.q.pacemaker.App;
 import com.example.q.pacemaker.ChatActivity;
-import com.example.q.pacemaker.GoalActivity;
 import com.example.q.pacemaker.R;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +24,7 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
 
     private final Activity activity;
     private JSONArray chatRoomListArray;
+
 
     public ChatRoomListAdapter(Activity activity, JSONArray chatRoomListArray) {
         assert activity != null;
@@ -47,11 +44,10 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
         final JSONObject chatRoomObj = chatRoomListArray.optJSONObject(position);
 
         try {
-            String url = chatRoomObj.getString("photo");
             // Bitmap bmp = new LoadImage().execute(url).get();
             // holder.imageView.setImageBitmap(bmp);
             // Picasso.with(activity.getApplicationContext()).load(url).into(holder.chatRoomPhoto);
-            holder.chatRoomPhoto.setBackgroundColor(Color.parseColor(getRandomColor()));
+            holder.chatRoomPhoto.setBackgroundColor(Color.parseColor(chatRoomObj.getString("color")));
             holder.chatRoomTitle.setText(chatRoomObj.getString("title"));
             holder.chatRoomPeople.setText(chatRoomObj.getString("people") + "명 참여중");
 
@@ -59,8 +55,14 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, ChatActivity.class);
-                    activity.startActivity(intent);
+                    try {
+                        Intent intent = new Intent(activity, ChatActivity.class);
+                        intent.putExtra("room name", chatRoomObj.getString("title"));
+                        intent.putExtra("rid", chatRoomObj.getString("_id"));
+                        activity.startActivity(intent);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (JSONException e) {

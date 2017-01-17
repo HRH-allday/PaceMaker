@@ -10,12 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.q.pacemaker.Utilities.SendJSON;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -31,6 +35,7 @@ public class ChatActivity extends Activity {
     private Socket mSocket;
     private String ec2url = "http://ec2-52-78-200-87.ap-northeast-2.compute.amazonaws.com:3000";
 
+
     private EditText chatEdit;
     private Button chatSendButton;
     private RecyclerView chatRecyclerView;
@@ -40,8 +45,11 @@ public class ChatActivity extends Activity {
     private String roomName;
     private String roomID;
 
+    private String token;
+
     private ArrayList<UserInfo> participant = new ArrayList<>();
 
+    private UserInfo profile;
     {
         try {
             mSocket = IO.socket(ec2url);
@@ -52,6 +60,21 @@ public class ChatActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        token = FirebaseInstanceId.getInstance().getToken();
+
+        try {
+            JSONObject req = new JSONObject();
+            req.put("token", token);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_user_info, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                JSONObject userData = res.getJSONObject("user");
+                Log.i("userData", userData.toString());
+                profile = new UserInfo(userData.getString("name"), userData.getString("photo"), userData.getString("token"));
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         //TODO: roomName, roomID intent로 넘겨 받기
         Intent intent = getIntent();
@@ -72,7 +95,7 @@ public class ChatActivity extends Activity {
         mSocket.on("user joined", onUserJoined);
         mSocket.on("member info", onMemberInfo);
 
-        mSocket.emit("user joined", MainActivity.myInfo.userName, roomName, "roomID");
+        mSocket.emit("user joined", profile.userName, roomName, "roomID");
         mSocket.emit("member info", roomID);
 
         //TODO: db에서 participant 정보 받아오기
@@ -85,8 +108,8 @@ public class ChatActivity extends Activity {
                     return;
                 else{
                     chatEdit.setText("");
-                    addMessage(MainActivity.myInfo, chatMessage, 0);
-                    mSocket.emit("new message", MainActivity.myInfo.token, chatMessage);
+                    addMessage(profile, chatMessage, 0);
+                    mSocket.emit("new message", token, chatMessage);
                 }
             }
         });
@@ -117,9 +140,8 @@ public class ChatActivity extends Activity {
                     }
 
                     // add the message to view
-                    // TODO: token 으로 바꾸기
                     Log.i("test",message);
-                    addMessage(new UserInfo(username, url, ""), message, 1);
+                    addMessage(new UserInfo(username, url, token), message, 1);
                 }
             });
         }
@@ -174,6 +196,7 @@ public class ChatActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
 
+        mSocket.emit("exit", roomID);
         mSocket.disconnect();
         mSocket.off("new message", onNewMessage);
     }

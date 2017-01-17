@@ -45,6 +45,7 @@ public class ChatRoomActivity extends Activity {
     private String pid;
     private String title;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +78,7 @@ public class ChatRoomActivity extends Activity {
         }catch (JSONException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_list);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -120,7 +122,6 @@ public class ChatRoomActivity extends Activity {
         recyclerViewChatRoom = (RecyclerView) findViewById(R.id.recycler_view_chatroom);
 
         staggeredGridLayoutManagerChatRoom = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        chatRoomListAdapter = new ChatRoomListAdapter(this, getTestGoalItem());
 
         addChatButton = (FloatingActionButton) findViewById(R.id.make_chat);
         addChatButton.setOnClickListener(new View.OnClickListener() {
@@ -131,9 +132,36 @@ public class ChatRoomActivity extends Activity {
             }
         });
 
-        recyclerViewChatRoom.setHasFixedSize(true);
-        recyclerViewChatRoom.setLayoutManager(staggeredGridLayoutManagerChatRoom);
-        recyclerViewChatRoom.setAdapter(chatRoomListAdapter);
+
+        try {
+            JSONObject req = new JSONObject();
+            req.put("pid", pid);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_get_chatroom, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                Log.i("chatroom result : " , res.toString());
+                JSONArray chatrooms = res.getJSONArray("chatrooms");
+                JSONArray samplerooms = getTestGoalItem();
+                JSONArray mergedrooms = new JSONArray();
+                int numChats = chatrooms.length();
+                for(int i = 0 ; i < numChats ; i++){
+                    mergedrooms.put(chatrooms.get(numChats - i -1));
+                }
+                for(int i = 0 ; i< samplerooms.length() ; i++){
+                    mergedrooms.put(samplerooms.get(i));
+                }
+                recyclerViewChatRoom.setHasFixedSize(true);
+                recyclerViewChatRoom.setLayoutManager(staggeredGridLayoutManagerChatRoom);
+                chatRoomListAdapter = new ChatRoomListAdapter(this, mergedrooms);
+                recyclerViewChatRoom.setAdapter(chatRoomListAdapter);
+
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     private JSONArray getTestGoalItem() {
@@ -142,55 +170,58 @@ public class ChatRoomActivity extends Activity {
 
         try {
             JSONObject weight = new JSONObject();
+            weight.put("_id", "1234");
+            weight.put("pid", "1234");
             weight.put("title", "웨이트 트레이닝");
             weight.put("distance", "16.3");
             weight.put("people", "42");
-            weight.put("photo", "http://gaslightchiro.com/files/bigstock/2014/07/Beautiful-Young-Female-Exercis-58884710.jpg?w=1060&h=795&a=t");
+            weight.put("color", "#e48c5c");
 
             JSONObject running = new JSONObject();
+            running.put("_id", "1234");
+            running.put("pid", "1234");
             running.put("title", "유산소 운동");
             running.put("distance", "4.3");
             running.put("people", "29");
-            running.put("photo", "https://static1.squarespace.com/static/557b65c2e4b00283cf1ca9b0/t/5585d703e4b0d4f1a8bc4dc2/1434834698106/shutterstock_139712587.jpg?format=2500w");
+            running.put("color", "#d53492");
 
             JSONObject study = new JSONObject();
+            study.put("_id", "1234");
+            study.put("pid", "1234");
             study.put("title", "스터디");
             study.put("distance", "4.8");
             study.put("people", "38");
-            study.put("photo", "http://media.salemwebnetwork.com/cms/BST/12790-books-bible-study-school-hands.800w.tn.jpg");
+            study.put("color", "#ebdf41");
 
             JSONObject explore = new JSONObject();
+            explore.put("_id", "1234");
+            explore.put("pid", "1234");
             explore.put("title", "탐험");
             explore.put("distance", "11.8");
             explore.put("people", "8");
-            explore.put("photo", "https://www.gapyear.com/history-of-travel/images/future-travel.jpg");
+            explore.put("color", "#329ebb");
 
             JSONObject travel = new JSONObject();
+            travel.put("_id", "1234");
+            travel.put("pid", "1234");
             travel.put("title", "여행");
             travel.put("distance", "14.1");
             travel.put("people", "12");
-            travel.put("photo", "http://www.houseoftravel.co.nz/images/default-source/hot-stores/paris84f1d68287e2639a85d9ff0000167a3d.jpg");
+            travel.put("color", "#b1bf52");
 
             JSONObject programming = new JSONObject();
+            programming.put("_id", "1234");
+            programming.put("pid", "1234");
             programming.put("title", "프로그래밍");
             programming.put("distance", "1.4");
             programming.put("people", "24");
-            programming.put("photo", "http://media02.hongkiat.com/programming-myth/programmer.jpg");
+            programming.put("color", "#329ebb");
 
             test.put(weight);
             test.put(running);
             test.put(study);
             test.put(explore);
             test.put(travel);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
-            test.put(programming);
             test.put(programming);
 
 

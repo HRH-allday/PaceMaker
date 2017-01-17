@@ -201,6 +201,19 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
             e.printStackTrace();
         }
 
+        try {
+            JSONObject req = new JSONObject();
+            req.put("token", token);
+            req.put("pid", pid);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_check_register, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
 
 
 
