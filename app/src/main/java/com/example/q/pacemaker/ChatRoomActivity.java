@@ -24,8 +24,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 import static com.example.q.pacemaker.MainActivity.cidList;
 import static com.example.q.pacemaker.MainActivity.myUserInfo;
@@ -36,6 +41,7 @@ public class ChatRoomActivity extends Activity {
     private FloatingActionButton addChatButton;
     private ChatCreateDialog chatCreateDialog;
 
+    private String ec2url = "http://ec2-52-78-200-87.ap-northeast-2.compute.amazonaws.com:3000";
     private RecyclerView recyclerViewChatRoom;
     private StaggeredGridLayoutManager staggeredGridLayoutManagerChatRoom;
     private ChatRoomListAdapter chatRoomListAdapter;
@@ -45,6 +51,13 @@ public class ChatRoomActivity extends Activity {
     private String pid;
     private String title;
 
+    private Socket mSocket;
+
+    {
+        try {
+            mSocket = IO.socket(ec2url);
+        } catch (URISyntaxException e) {}
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,8 @@ public class ChatRoomActivity extends Activity {
         setContentView(R.layout.activity_chatroom);
         token = FirebaseInstanceId.getInstance().getToken();
 
+        mSocket.connect();
+        mSocket.on("room changed", onRoomChanged);
         // TODO : setup pid
         Intent intent = getIntent();
         pid = intent.getStringExtra("pid");
@@ -163,6 +178,36 @@ public class ChatRoomActivity extends Activity {
 
 
     }
+
+    private Emitter.Listener onRoomChanged = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    Log.i("changed", data.toString());
+                    try {
+                        JSONArray chatrooms = data.getJSONArray("chatrooms");
+                        JSONArray samplerooms = getTestGoalItem();
+                        JSONArray mergedrooms = new JSONArray();
+                        int numChats = chatrooms.length();
+                        for(int i = 0 ; i < numChats ; i++){
+                            mergedrooms.put(chatrooms.get(numChats - i -1));
+                        }
+                        for(int i = 0 ; i< samplerooms.length() ; i++){
+                            mergedrooms.put(samplerooms.get(i));
+                        }
+                        chatRoomListAdapter.dataSwap(mergedrooms);
+                        return;
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                }
+            });
+        }
+    };
 
     private JSONArray getTestGoalItem() {
 

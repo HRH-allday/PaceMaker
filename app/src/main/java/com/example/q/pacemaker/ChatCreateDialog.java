@@ -99,6 +99,7 @@ public class ChatCreateDialog extends Dialog {
                         intent.putExtra("room name", name);
                         intent.putExtra("rid", res.getJSONObject("new_chat").getString("_id"));
                         context.startActivity(intent);
+                        dismiss();
                     }
                 }catch (JSONException | InterruptedException | ExecutionException e) {
                     e.printStackTrace();

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,8 +133,38 @@ public class RoutineFragment extends Fragment {
         });
 
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                try {
+                    if(from == 1) return;
+                    JSONObject req = new JSONObject();
+                    req.put("cid", cid);
+                    req.put("index", viewHolder.getAdapterPosition());
+                    req.put("day", day);
+
+                    JSONObject res = new SendJSON(App.server_url + App.routing_get_remove_clone_routine, req.toString(), App.JSONcontentsType).execute().get();
+                    if (res != null && res.has("result") && res.getString("result").equals("success")) {
+
+                    }
+                }catch (JSONException | InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+
         backgroundList = (RecyclerView) view.findViewById(R.id.routine_recyclerview);
         backgroundList.setLayoutManager(mLayoutManager);
+
+        //if(from != 2) itemTouchHelper.attachToRecyclerView(backgroundList);
 
         if(from == 2){
             routineEdit.setVisibility(View.GONE);

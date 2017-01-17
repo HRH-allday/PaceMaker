@@ -1,14 +1,10 @@
 package com.example.q.pacemaker;
 
-import android.*;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.q.pacemaker.Utilities.Base64EncodeImage;
 import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.android.gms.common.ConnectionResult;
@@ -52,8 +47,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -229,10 +222,10 @@ public class CommunityActivity extends AppCompatActivity implements GoogleApiCli
 
         final Menu menu = navigationView.getMenu();
         final SubMenu subMenu = menu.addSubMenu("나의 목표");
-        for (int i = 0; i < titleList.size() ; i++) {
+        for (int i = 0; i < titleLists.size() ; i++) {
             Intent intentNav = new Intent(getApplicationContext(), GoalActivity.class);
-            intentNav.putExtra("cid", cidList.get(i));
-            subMenu.add(titleList.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
+            intentNav.putExtra("cid", cidLists.get(i));
+            subMenu.add(titleLists.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
         }
 
     }

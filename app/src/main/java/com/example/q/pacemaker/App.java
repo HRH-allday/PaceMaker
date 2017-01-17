@@ -31,6 +31,10 @@ public class App extends Application{
     public static final String routing_new_chat = "/new_chat";
     public static final String routing_check_register = "/check_register";
     public static final String routing_get_clone_list = "/get_clone_list";
+    public static final String routing_get_remove_clone_todo = "/get_remove_clone_todo";
+    public static final String routing_get_remove_clone_routine = "/get_remove_clone_routine";
+    public static final String routing_get_remove_clone_memo = "/get_remove_clone_memo";
+    public static final String routing_get_remove_clone = "/get_remove_clone";
     public static final String routing_update_clone_location = "/update_clone_location";
 
     public static final String JSONcontentsType = "application/json";

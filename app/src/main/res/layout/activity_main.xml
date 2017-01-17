@@ -25,64 +25,31 @@
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:title="오늘의 할 일"/>
+            android:title="오늘의 할 일">
+            <TextView
+                android:textSize="@dimen/text_regular"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:text="오늘의 할 일"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v7.widget.Toolbar>
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/main_add_goal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="15dp"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:src="@drawable/ic_add" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/main_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/main_add_goal"
-            android:layout_alignLeft="@+id/main_add_goal"
-            android:layout_alignStart="@+id/main_add_goal"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:src="@drawable/ic_add" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/main_community"
-            android:layout_alignLeft="@+id/main_add_goal"
-            android:layout_alignStart="@+id/main_add_goal"
             android:background="@android:color/transparent"
             android:scaleType="center"
-            android:src="@drawable/ic_add" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/main_chatroom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/main_register"
-            android:layout_alignLeft="@+id/main_add_goal"
-            android:layout_alignStart="@+id/main_add_goal"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:src="@drawable/ic_add" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/main_googlemap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/main_chatroom"
-            android:layout_alignLeft="@+id/main_add_goal"
-            android:layout_alignStart="@+id/main_add_goal"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:src="@drawable/ic_add" />
+            android:src="@drawable/ic_add"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_recycler_view"

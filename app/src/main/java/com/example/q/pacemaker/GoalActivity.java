@@ -1,13 +1,10 @@
 package com.example.q.pacemaker;
 
-import android.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +20,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,12 +32,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.q.pacemaker.Utilities.Base64EncodeImage;
 import com.example.q.pacemaker.Utilities.RoundedImageView;
 import com.example.q.pacemaker.Utilities.SendJSON;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.fitness.data.Goal;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -57,8 +53,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -326,6 +320,32 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
         todoAdapter = new TodoListAdapter(todoLists);
         todoRecyclerView.setAdapter(todoAdapter);
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                try {
+                    JSONObject req = new JSONObject();
+                    req.put("cid", cloneID);
+                    req.put("index", viewHolder.getAdapterPosition());
+
+                    JSONObject res = new SendJSON(App.server_url + App.routing_get_remove_clone_todo, req.toString(), App.JSONcontentsType).execute().get();
+                    if (res != null && res.has("result") && res.getString("result").equals("success")) {
+
+                    }
+                }catch (JSONException | InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        //itemTouchHelper.attachToRecyclerView(todoRecyclerView);
         // routine card
 
         routineView = (CardView) findViewById(R.id.routine_cardview);
@@ -383,6 +403,33 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback2 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                try {
+                    JSONObject req = new JSONObject();
+                    req.put("cid", cloneID);
+                    req.put("index", viewHolder.getAdapterPosition());
+
+                    JSONObject res = new SendJSON(App.server_url + App.routing_get_remove_clone_memo, req.toString(), App.JSONcontentsType).execute().get();
+                    if (res != null && res.has("result") && res.getString("result").equals("success")) {
+
+                    }
+                }catch (JSONException | InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper2 = new ItemTouchHelper(simpleItemTouchCallback2);
+        //itemTouchHelper2.attachToRecyclerView(memoRecyclerView);
 
         //share
         shareButton = (Button) findViewById(R.id.share_button);
@@ -833,12 +880,12 @@ public class GoalActivity extends AppCompatActivity implements TabLayout.OnTabSe
                         googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPoint));
                         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-                        JSONObject jobj = new JSONObject();
-                        jobj.put("cid", cloneID);
-                        jobj.put("latitude", latitude);
-                        jobj.put("longitude", longitude);
+                        JSONObject req = new JSONObject();
+                        req.put("cid", cloneID);
+                        req.put("latitude", latitude);
+                        req.put("longitude", longitude);
 
-                        JSONObject res = new SendJSON(App.server_url + App.routing_update_clone_location, jobj.toString(), App.JSONcontentsType).execute().get();
+                        JSONObject res = new SendJSON(App.server_url + App.routing_update_clone_location, req.toString(), App.JSONcontentsType).execute().get();
                         if (res != null && res.has("result") && res.getString("result").equals("success")) {
                             Log.i("UPDATED", "Location");
                         }

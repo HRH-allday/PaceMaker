@@ -162,49 +162,12 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter = new GoalCardViewAdapter(todoList, titleList);
         mainTodoList.setAdapter(mainAdapter);
 
-
-        FloatingActionButton add_goal = (FloatingActionButton) findViewById(R.id.main_add_goal);
-
-        add_goal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GoalActivity.class);
-                startActivity(intent);
-            }
-        });
-        FloatingActionButton community = (FloatingActionButton) findViewById(R.id.main_community);
-
-        community.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CommunityGoals.class);
-                startActivity(intent);
-            }
-        });
         FloatingActionButton register = (FloatingActionButton) findViewById(R.id.main_register);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GoalRegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        FloatingActionButton chatroom = (FloatingActionButton) findViewById(R.id.main_chatroom);
-        chatroom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChatRoomActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        FloatingActionButton googlemap = (FloatingActionButton) findViewById(R.id.main_googlemap);
-        googlemap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
             }
         });

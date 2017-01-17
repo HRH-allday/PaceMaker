@@ -95,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), user_name_from_server + "님으로 로그인했습니다.", Toast.LENGTH_SHORT).show();
             Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(mainIntent);
+            finish();
         } else {
             // if the user does not exist in server db, show the register view
             // name, photo, e-mail(?),
@@ -177,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (res != null && res.has("result") && res.getString("result").equals("success")) {
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(mainIntent);
+                    finish();
                 }
             } catch (JSONException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();

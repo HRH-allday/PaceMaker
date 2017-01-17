@@ -43,20 +43,25 @@
             android:theme="@style/AppThemeNoActionBar"></activity>
         <activity
             android:name=".CommunityGoals"
-            android:label="커뮤니티" />
+            android:label="커뮤니티"
+            android:theme="@style/AppThemeNoActionBar" />
+
         <activity android:name=".GoalRegisterActivity" />
-        <activity android:name=".GoalDescriptionActivity" />
+        <activity android:name=".GoalDescriptionActivity"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity
             android:name=".GoalActivity"
             android:theme="@style/AppThemeNoActionBar" />
+
         <activity
             android:name=".CommunityActivity"
             android:theme="@style/AppThemeNoActionBar" />
         <activity android:name=".ChatActivity" />
+
         <activity
             android:name=".ChatRoomActivity"
             android:label="채팅방"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppThemeNoActionBar" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

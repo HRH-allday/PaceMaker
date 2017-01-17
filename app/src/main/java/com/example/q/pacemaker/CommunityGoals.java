@@ -8,7 +8,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -100,6 +102,14 @@ public class CommunityGoals extends AppCompatActivity {
         Picasso.with(getApplicationContext()).load(myUserInfo.url).into(profileImage);
         TextView userName = (TextView) viewNavHeader.findViewById(R.id.username_profile);
         userName.setText(myUserInfo.userName);
+
+        final Menu menu = navigationView.getMenu();
+        final SubMenu subMenu = menu.addSubMenu("나의 목표");
+        for (int i = 0; i < titleLists.size() ; i++) {
+            Intent intentNav = new Intent(getApplicationContext(), GoalActivity.class);
+            intentNav.putExtra("cid", cidLists.get(i));
+            subMenu.add(titleLists.get(i)).setIcon(R.drawable.ic_done).setIntent(intentNav);
+        }
 
 
 

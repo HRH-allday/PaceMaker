@@ -110,7 +110,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{
         }else {
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.chat_item_user_exited, viewGroup, false);
-            return new UserEnteredViewHolder(v);
+            return new UserExitedViewHolder(v);
         }
     }
 

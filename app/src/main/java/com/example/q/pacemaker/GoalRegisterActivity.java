@@ -88,7 +88,7 @@ public class GoalRegisterActivity extends AppCompatActivity implements TabLayout
     private EditText register_end_date;
     private Button register_button;
 
-    private String[] keyword_hash = {"nodejs", "reactjs", "angularjs", "unity", "android", "machine learning", "TOEFL", "TEPS", "TOEIC"};
+    private String[] keyword_hash = {"여행", "탐험", "공부", "운동", "다이어트", "영어", "수학", "컴퓨터", "물리", "동아리", "학점", "성적", "수능", "토익", "토플", "텝스", "자격증", "음악", "스포츠", "게임", "영화", "프로그래밍", "코딩", "개발", "독서", "문화생활", "맛집탐방", "소모임", "동호회", "취미생활", "레이싱", "프로젝트", "전공", "악기", "금연", "금주", "안드로이드", "유니티", "자바", "자바스크립트", "루비", "서버", "클라이언트", "운영체제"};
     private Bitmap selectedImage;
     private String base64EncodedImage;
     private Activity activity;

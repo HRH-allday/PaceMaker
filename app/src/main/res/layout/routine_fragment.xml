@@ -22,11 +22,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
-            android:background="@color/colorLight" />
+            android:text="+"
+            android:textSize="@dimen/text_large"
+            android:gravity="center"
+            style="@style/Widget.AppCompat.Button.Colored"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/routine_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="150dp" />
 </LinearLayout>

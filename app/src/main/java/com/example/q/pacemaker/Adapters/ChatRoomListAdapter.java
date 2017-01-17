@@ -38,6 +38,11 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
         return new ViewHolder(layoutView);
     }
 
+    public void dataSwap(JSONArray jarr){
+        chatRoomListArray = jarr;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.position = holder.getAdapterPosition();
