@@ -68,6 +68,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{
         }
     }
 
+    public class UserExitedViewHolder extends ViewHolder {
+        // each data item is just a string in this case
+        public TextView mTextView;
+
+        public UserExitedViewHolder(View view) {
+            super(view);
+            mTextView = (TextView)view.findViewById(R.id.user_exited);
+        }
+    }
+
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChatAdapter(ArrayList<ChatMessage> myDataset, Context ct) {
         mDataset = myDataset;
@@ -93,9 +103,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.chat_item_other, viewGroup, false);
             return new OtherMessageViewHolder(v);
-        }else {
+        }else if (viewType == ENTERED){
             v = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.chat_item_user_entered, viewGroup, false);
+            return new UserEnteredViewHolder(v);
+        }else {
+            v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.chat_item_user_exited, viewGroup, false);
             return new UserEnteredViewHolder(v);
         }
     }
@@ -117,9 +131,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder>{
             holder.otherMessage.setText(mDataset.get(position).message);
             Picasso.with(context).load(mDataset.get(position).user.url).into(holder.mImageView);
         }
-        else {
+        else if (viewHolder.getItemViewType() == ENTERED){
             UserEnteredViewHolder holder = (UserEnteredViewHolder) viewHolder;
             holder.mTextView.setText("--- " + mDataset.get(position).user.userName + "님이 입장하셨습니다 ---");
+        }
+        else {
+            UserExitedViewHolder holder = (UserExitedViewHolder) viewHolder;
+            holder.mTextView.setText("--- " + mDataset.get(position).user.userName + "님이 퇴장하셨습니다 ---");
         }
     }
 
