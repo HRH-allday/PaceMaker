@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,6 +76,8 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
     LatLng selectedPoint = new LatLng(37.56, 126.97);
     private Button selectButton;
 
+    JSONArray LatLngArray;
+    private boolean hasExtra = false;
 
     protected synchronized void buildGoogleApiClient()
     {
@@ -147,6 +150,17 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         // SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
         //        .findFragmentById(R.id.map);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("latlng")) {
+            try {
+                String LatLngArrayStr = intent.getExtras().getString("latlng");
+                LatLngArray = new JSONArray(LatLngArrayStr);
+                hasExtra = true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -295,6 +309,20 @@ public class MapsActivity extends FragmentActivity implements GoogleApiClient.Co
 
         googleMap.setOnMapClickListener(this);
         googleMap.setOnMapLongClickListener(this);
+
+        if (hasExtra) {
+            try {
+                for (int i = 0; i < LatLngArray.length(); i++) {
+                    Double lat = Double.parseDouble(LatLngArray.getJSONObject(i).getString("latitude"));
+                    Double lng = Double.parseDouble(LatLngArray.getJSONObject(i).getString("latitude"));
+                    LatLng goal_clone_point = new LatLng(lat, lng);
+                    Marker goal_clone_marker = googleMap.addMarker(new MarkerOptions().position(goal_clone_point));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
 
             @Override

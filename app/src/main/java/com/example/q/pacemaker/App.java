@@ -27,6 +27,7 @@ public class App extends Application{
     public static final String routing_add_routine = "/add_routine";
     public static final String routing_add_memo = "/add_memo";
     public static final String routing_user_follow = "/user_follow";
+    public static final String routing_get_clone_list = "/get_clone_list";
 
     public static final String JSONcontentsType = "application/json";
 
