@@ -94,8 +94,9 @@ public class ChatActivity extends Activity {
         mSocket.on("new message", onNewMessage);
         mSocket.on("user joined", onUserJoined);
         mSocket.on("member info", onMemberInfo);
+        mSocket.on("exit info", onExitInfo);
 
-        mSocket.emit("user joined", profile.userName, roomName, "roomID");
+        mSocket.emit("user joined", profile.userName, roomName, roomID);
         mSocket.emit("member info", roomID);
 
         //TODO: db에서 participant 정보 받아오기
@@ -192,11 +193,31 @@ public class ChatActivity extends Activity {
         }
     };
 
+    private Emitter.Listener onExitInfo = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String username;
+                    try {
+                        username = data.getString("username");
+                    } catch (JSONException e) {
+                        return;
+                    }
+                    addMessage(new UserInfo(username, "", ""), "", 3);
+
+                }
+            });
+        }
+    };
+
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        mSocket.emit("exit", roomID);
+        mSocket.emit("exit", token, roomID);
         mSocket.disconnect();
         mSocket.off("new message", onNewMessage);
     }

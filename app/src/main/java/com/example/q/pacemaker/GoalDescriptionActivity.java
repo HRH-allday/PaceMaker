@@ -201,18 +201,6 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
             e.printStackTrace();
         }
 
-        try {
-            JSONObject req = new JSONObject();
-            req.put("token", token);
-            req.put("pid", pid);
-
-            JSONObject res = new SendJSON(App.server_url + App.routing_check_register, req.toString(), App.JSONcontentsType).execute().get();
-            if (res != null && res.has("result") && res.getString("result").equals("success")) {
-
-            }
-        }catch (JSONException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
 
 
@@ -233,6 +221,21 @@ public class GoalDescriptionActivity extends AppCompatActivity implements TabLay
         description_description.setText(description);
 
         description_join_button = (Button) findViewById(R.id.description_join_button);
+
+        try {
+            JSONObject req = new JSONObject();
+            req.put("token", token);
+            req.put("pid", pid);
+
+            JSONObject res = new SendJSON(App.server_url + App.routing_check_register, req.toString(), App.JSONcontentsType).execute().get();
+            if (res != null && res.has("result") && res.getString("result").equals("success")) {
+                if(res.getBoolean("bool"))
+                    description_join_button.setVisibility(View.GONE);
+            }
+        }catch (JSONException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.description_map_view);
 
         //routine setting
