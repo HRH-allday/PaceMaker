@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.q.pacemaker.GoalActivity;
+import com.example.q.pacemaker.GoalDescriptionActivity;
 import com.example.q.pacemaker.R;
 import com.squareup.picasso.Picasso;
 import com.example.q.pacemaker.App;
@@ -54,7 +55,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder> {
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, GoalActivity.class);
+                    Intent intent = new Intent(activity, GoalDescriptionActivity.class);
                     // intent.putExtra("<field_name>", goalObj.toString());
                     activity.startActivity(intent);
                 }
